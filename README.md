@@ -20,8 +20,8 @@ require "hardware"
 
 Output is a string representing percentage used.
 ```crystal
-Hardware.mem_used => 12
-Hardware.cpu_used => 15
+Hardware.mem_used => "12"
+Hardware.cpu_used => "15"
 ```
 
 ## Development
