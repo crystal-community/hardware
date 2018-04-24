@@ -11,22 +11,26 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   hardware:
-    github: NeuraLegion/hardware
+    github: crystal-community/hardware
 ```
 
 ## Usage
 
 #### Methods included in the `Hardware::CPU` module:
 
-`#info : NamedTuple(used: Int32, idle: Int32, total: Int32)`
+`.info : NamedTuple(used: Int32, idle: Int32, total: Int32)`
 
 Returns a NamedTuple including the used, idle and total CPU time.
 
-`#used(sleep_time = 1)`
+`.used(sleep_time = 1) : Int32`
 
 Returns the cpu used in percentage in the last `sleep_time` seconds.
 
 #### Methods included in the `Hardware::Memory` struct:
+
+`.new`
+
+Creates a new `Hardware::Memory` based on the current memory state.
 
 `#available : Int32`
 
@@ -63,7 +67,7 @@ Hardware::CPU.used #=> 12
 
 ## Contributing
 
-1. Fork it ( https://github.com/NeuraLegion/hardware/fork )
+1. Fork it ( https://github.com/crystal-community/hardware/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
