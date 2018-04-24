@@ -71,4 +71,5 @@ Hardware::CPU.used #=> 12
 
 ## Contributors
 
-- [bararchy](https://github.com/bararchy) - creator, maintainer
+- [bararchy](https://github.com/bararchy) - creator, maintainer   
+- [j8r](https://github.com/j8r) - contributor  
