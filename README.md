@@ -2,6 +2,8 @@
 
 This is a very basic module to help get CPU and memory usage of the current running OS
 
+Tested on Linux.
+
 ## Installation
 
 Add this to your application's `shard.yml`:
@@ -14,27 +16,50 @@ dependencies:
 
 ## Usage
 
+#### Methods included in the `Hardware::CPU` module:
+
+`#info : NamedTuple(used: Int32, idle: Int32, total: Int32)`
+
+Returns a NamedTuple including the used, idle and total CPU time.
+
+`#used(sleep_time = 1)`
+
+Returns the cpu used in percentage in the last `sleep_time` seconds.
+
+#### Methods included in the `Hardware::Memory` struct:
+
+`#available : Int32`
+
+Returns the available memory in KiloBytes.
+
+`#meminfo : Hash(String, Int64)`
+
+Returns an Hash from a parsed `/proc/meminfo`
+
+`#percent(used = true) : Int32`
+
+Returns either the used/available memory in percentage.
+
+`#total : Int32`
+
+Returns the total memory in KiloBytes.
+
+`#used : Int32`
+
+Returns the memory used in KiloBytes.
+
+## Examples
+
 ```crystal
 require "hardware"
+
+memory = Hardware::Memory.new
+memory.used        #=> 2731404
+memory.percent     #=> 32
+
+Hardware::CPU.used #=> 12
+
 ```
-
-Output is a string representing percentage used.
-```crystal
-Hardware.mem_used => "12"
-Hardware.cpu_used => "15"
-```
-
-## Development
-
-This is currently working on Arch Linux, it behaves wierd on Ubuntu.
-Maybe a way to define working enviroment is needed
-
-```crystal
-h = Hardware.new("ubuntu")
-h.mem_used
-```
-
-Still needs research
 
 ## Contributing
 
