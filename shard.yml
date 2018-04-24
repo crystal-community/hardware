@@ -1,9 +1,10 @@
 name: hardware
-version: 0.1.0
+version: 0.2.0
 
 authors:
   - bararchy <bar.hofesh@safe-t.com>
+  - Julien Reichardt <mi@jrei.ch>
 
-crystal: 0.24.0+58
+crystal: 0.24.2
 
 license: MIT
