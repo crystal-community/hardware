@@ -1,5 +1,7 @@
 # hardware
 
+[![Build Status](https://travis-ci.org/crystal-community/hardware.svg?branch=master)](https://travis-ci.org/crystal-community/hardware)
+
 This is a very basic module to help get CPU and memory usage of the current running OS
 
 Tested on Linux.
