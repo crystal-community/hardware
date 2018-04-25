@@ -2,7 +2,7 @@ module Hardware::CPU
   def self.info
     cpu = File.read("/proc/stat").lines.first[5..-1].split(' ').map &.to_i
     {
-      used: cpu[0] + cpu[1] + cpu[2],
+      used:  cpu[0] + cpu[1] + cpu[2],
       idle:  cpu[3],
       total: cpu[0] + cpu[1] + cpu[2] + cpu[3],
     }

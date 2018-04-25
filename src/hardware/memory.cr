@@ -17,8 +17,8 @@ struct Hardware::Memory
   # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=34e431b0ae398fc54ea69ff85ec700722c9da773
   # MemAvailable can be not present in older systems
   def available
-    if @meminfo["MemAvailable"]?
-      @meminfo["MemAvailable"]
+    if mem_available = @meminfo["MemAvailable"]?
+      mem_available
     else
       @meminfo["MemFree"] - @meminfo["Buffers"] - @meminfo["Cached"] - @meminfo["SReclaimable"] - @meminfo["Shmem"]
     end.to_i
