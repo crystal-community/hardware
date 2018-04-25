@@ -67,6 +67,17 @@ Hardware::CPU.used #=> 12
 
 ```
 
+## Development
+
+### Docker
+
+You can run the specs in a Docker container:
+
+```sh
+$ docker-compose up
+$ docker-compose run spec
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/crystal-community/hardware/fork )
