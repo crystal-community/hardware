@@ -6,6 +6,6 @@ describe Hardware::CPU do
   end
 
   it "checks the percentage used" do
-    (0 < Hardware::CPU.used <= 100).should be_true
+    (0 <= Hardware::CPU.used <= 100).should be_true
   end
 end
