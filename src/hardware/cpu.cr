@@ -9,12 +9,19 @@ module Hardware::CPU
     }
   end
 
-  def self.used(sleep_time = 1)
-    proc0 = info
-    sleep sleep_time
-    proc1 = info
+  def self.each_use(sleep_time = 1)
+    proc_last = info
+    loop do
+      sleep sleep_time
+      proc_now = info
 
-    # 100 * Usage / Total
-    (100 * ((proc1[:used] - proc0[:used]).to_f32 / (proc1[:total] - proc0[:total]))).round
+      # 100 * Usage / Total
+      yield (100 * ((proc_now[:used] - proc_last[:used]).to_f32 / (proc_now[:total] - proc_last[:total]))).round
+      proc_last = proc_now
+    end
+  end
+
+  def self.used(sleep_time = 1)
+    each_use(sleep_time) { |cpu| return cpu }
   end
 end
