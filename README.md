@@ -28,6 +28,10 @@ Returns a NamedTuple including the used, idle and total CPU time.
 
 Returns the cpu used in percentage in the last `sleep_time` seconds.
 
+`.each_use(sleep_time = 1) : Int32`
+
+Returns the cpu used in percentage each `sleep_time` seconds infinitely.
+
 #### Methods included in the `Hardware::Memory` struct:
 
 `.new`
@@ -64,7 +68,9 @@ memory.used        #=> 2731404
 memory.percent     #=> 32
 
 Hardware::CPU.used #=> 12
-
+Hardware::CPU.each_use do |cpu|
+  cpu              #=> 17
+end
 ```
 
 ## Development
