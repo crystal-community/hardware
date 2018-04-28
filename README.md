@@ -64,12 +64,12 @@ Returns the memory used in KiloBytes.
 require "hardware"
 
 memory = Hardware::Memory.new
-memory.used        #=> 2731404
-memory.percent     #=> 32
+memory.used            #=> 2731404
+memory.percent.to_i    #=> 32
 
-Hardware::CPU.used #=> 12
+Hardware::CPU.used.to_i #=> 12
 Hardware::CPU.each_use do |cpu|
-  cpu              #=> 17
+  cpu.to_i              #=> 17
 end
 ```
 
