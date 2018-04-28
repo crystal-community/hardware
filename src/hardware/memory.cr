@@ -29,6 +29,6 @@ struct Hardware::Memory
   end
 
   def percent(used = true)
-    ((used ? self.used : available) * 100 / total).round
+    (used ? self.used : available).to_f32 * 100 / total
   end
 end

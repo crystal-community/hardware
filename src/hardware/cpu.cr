@@ -16,7 +16,7 @@ module Hardware::CPU
       proc_now = info
 
       # 100 * Usage / Total
-      yield (100 * ((proc_now[:used] - proc_last[:used]).to_f32 / (proc_now[:total] - proc_last[:total]))).round
+      yield (proc_now[:used] - proc_last[:used]).to_f32 / (proc_now[:total] - proc_last[:total]) * 100
       proc_last = proc_now
     end
   end
