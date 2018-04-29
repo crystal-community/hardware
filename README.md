@@ -18,19 +18,23 @@ dependencies:
 
 ## Usage
 
-#### Methods included in the `Hardware::CPU` module:
+#### Methods included in the `Hardware::CPU` struct:
+
+`.new`
+
+Creates a new `Hardware::CPU` based on the current memory state.
 
 `.info : NamedTuple(used: Int32, idle: Int32, total: Int32)`
 
-Returns a NamedTuple including the used, idle and total CPU time.
+Returns the current used, idle and total CPU time.
 
-`.used(sleep_time = 1) : Int32`
+`#previous_info : NamedTuple(used: Int32, idle: Int32, total: Int32)`
 
-Returns the cpu used in percentage in the last `sleep_time` seconds.
+Returns the previous used, idle and total CPU time. Used to store the previous CPU time informations to calculate the percentage in`.used`.
 
-`.each_use(sleep_time = 1) : Int32`
+`#used(update = true) : Int32`
 
-Returns the cpu used in percentage each `sleep_time` seconds infinitely.
+Returns the CPU used in percentage based on `@@previous_info`.
 
 #### Methods included in the `Hardware::Memory` struct:
 
@@ -58,21 +62,92 @@ Returns the total memory in KiloBytes.
 
 Returns the memory used in KiloBytes.
 
+#### Methods included in the `Hardware::PID` struct:
+
+`.new(@pid : Int32 = Process.pid, @cpu_time = true, @cpu_total = true)`
+
+Creates a new `Hardware::PID`. `@cpu_time` and `@cpu_total` updates the CPU time informations. Set to false if lots of `Hardware::PID` are created.
+
+`.new(executable : String, cpu_time = true, cpu_total = true)`
+
+Creates a new `Hardware::PID` by finding the `executable`'s pid.
+
+`.all(cpu_time = false, cpu_total = false) : Hardware::PID`
+
+Yields a `Hardware::PID` for each PID existing on the system.
+
+`#cmdline : String`
+
+Returns `/proc/@pid/cmdline`.
+
+`#cpu_time(children = false)`
+
+Returns the CPU time without including ones from `children` processes.
+
+`#cpu_used : Float32`
+
+Returns the CPU used in percentage.
+
+`#exe : String | Nil`
+
+Returns `/proc/@pid/exe` if readable.
+
+`.get_pids(executable : String) : Array(Int32)`
+
+Return all pids corresponding of a given `executable` name.
+
+`#memory : Int32`
+
+Returns the actual memory used by the process.
+
+`#name : String`
+
+Returns the PID name based on `#exe` or `#cmdline`.
+
+`.cpu_total_current : Int32`
+
+Returns `@@cpu_total_current`.
+
+`.cpu_total_previous : Int32`
+
+Returns `@cpu_total_previous`.
+
+`#cpu_time_previous : Int32`
+
+Returns `@cpu_time_previous`.
+
+`#stat : Array(String)`
+
+Returns a parsed `/proc/@pid/stat`.
+
+`#statm : Array(Int32)`
+
+Returns a parsed `/proc/@pid/statm`.
+
+`#status : Hash(String, String)`
+
+Returns a parsed `/proc/@pid/status`.
+
 ## Examples
 
 ```crystal
 require "hardware"
 
 memory = Hardware::Memory.new
-memory.used            #=> 2731404
-memory.percent.to_i    #=> 32
+memory.used         #=> 2731404
+memory.percent.to_i #=> 32
 
-Hardware::CPU.used.to_i #=> 12
-Hardware::CPU.each_use do |cpu|
-  cpu.to_i              #=> 17
+cpu = Hardware::CPU.new
+pid = Hardware::PID.new(1)         # Default Process.pid.
+app = Hardware::PID.new("firefox") # Take the first matching PID
+
+loop do
+  sleep 1
+  cpu.used.to_i     #=> 17
+  pid.cpu_used      #=> 1.5
+  app.cpu_used.to_i #=> 4
 end
 ```
-
 ## Development
 
 ### Docker

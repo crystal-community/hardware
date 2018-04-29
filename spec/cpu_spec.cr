@@ -5,14 +5,16 @@ describe Hardware::CPU do
     Hardware::CPU.info.should be_a NamedTuple(used: Int32, idle: Int32, total: Int32)
   end
 
-  it "checks the percentage used" do
-    (0 <= Hardware::CPU.used <= 100).should be_true
-  end
+  describe "struct" do
+    cpu = Hardware::CPU.new
 
-  it "checks the percentage in each_use" do
-    Hardware::CPU.each_use do |cpu|
-      (0 <= cpu <= 100).should be_true
-      break
+    it "checks the percentage used" do
+      Hardware::CPU.previous_info.should be_a NamedTuple(used: Int32, idle: Int32, total: Int32)
+    end
+
+    it "checks the percentage used" do
+      sleep 0.1
+      (0 <= cpu.used <= 100).should be_true
     end
   end
 end

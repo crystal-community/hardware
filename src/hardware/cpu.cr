@@ -1,4 +1,9 @@
-module Hardware::CPU
+struct Hardware::CPU
+  class_property previous_info : NamedTuple(used: Int32, idle: Int32, total: Int32) = CPU.info
+
+  def initialize
+  end
+
   def self.info
     cpu = File.read("/proc/stat").lines.first[5..-1].split(' ').map &.to_i
     # Array: user nice system idle iowait irq softirq steal guest guest_nice
@@ -9,19 +14,13 @@ module Hardware::CPU
     }
   end
 
-  def self.each_use(sleep_time = 1)
-    proc_last = info
-    loop do
-      sleep sleep_time
-      proc_now = info
+  def used(update = true)
+    current_info = CPU.info
 
-      # 100 * Usage / Total
-      yield (proc_now[:used] - proc_last[:used]).to_f32 / (proc_now[:total] - proc_last[:total]) * 100
-      proc_last = proc_now
-    end
-  end
+    # 100 * Usage / Total
+    result = (current_info[:used] - @@previous_info[:used]).to_f32 / (current_info[:total] - @@previous_info[:total]) * 100
 
-  def self.used(sleep_time = 1)
-    each_use(sleep_time) { |cpu| return cpu }
+    @@previous_info = current_info if update
+    result
   end
 end
