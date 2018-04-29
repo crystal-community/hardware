@@ -32,8 +32,8 @@ describe Hardware::PID do
       File.basename(pid.exe.not_nil!).should eq "crystal-run-spec.tmp"
     end
 
-    it "parses cmdline" do
-      pid.cmdline.should be_a String
+    it "parses command" do
+      File.basename(pid.command).should eq "crystal-run-spec.tmp "
     end
 
     describe "tests CPU related methods for" do

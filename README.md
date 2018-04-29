@@ -76,6 +76,10 @@ Creates a new `Hardware::PID` by finding the `executable`'s pid.
 
 Yields a `Hardware::PID` for each PID existing on the system.
 
+`#command : String`
+
+Returns a String representation of `/proc/@pid/cmdline`.
+
 `#cmdline : String`
 
 Returns `/proc/@pid/cmdline`.

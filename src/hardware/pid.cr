@@ -41,8 +41,12 @@ struct Hardware::PID
     pids
   end
 
+  def command
+    cmdline.gsub('\0', ' ')
+  end
+
   def cmdline
-    read_proc("cmdline").gsub('\0', ' ')
+    read_proc("cmdline")
   end
 
   def cpu_time(children = false)
@@ -81,7 +85,7 @@ struct Hardware::PID
   end
 
   def name
-    File.basename (command = exe) ? command : cmdline
+    File.basename (cmd = exe) ? cmd : command
   end
 
   def stat
