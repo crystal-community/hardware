@@ -1,12 +1,12 @@
 struct Hardware::PID
   getter pid : Int32
-  @status = Hash(String, String).new
   # Used to avoid duplicate operations when lots of Hardware::PID are created (like a top implementation)
   class_property cpu_total_current = 0
   property cpu_total_previous = 0
   property cpu_time_previous = 0
   @cpu_time : Bool
   @cpu_total : Bool
+  @stat = Array(String).new
 
   def initialize(@pid : Int32 = Process.pid, @cpu_time = true, @cpu_total = true)
     @cpu_total_previous = @@cpu_total_current = CPU.info[:total] if @cpu_total
@@ -27,14 +27,14 @@ struct Hardware::PID
   def self.all(cpu_time = false, cpu_total = false)
     Dir.each_child "/proc" do |pid_dir|
       if pid = pid_dir.to_i?
-        yield Hardware::PID.new(pid: pid, cpu_time: false, cpu_total: false)
+        yield Hardware::PID.new(pid: pid, cpu_time: cpu_time, cpu_total: cpu_total)
       end
     end
   end
 
   def self.get_pids(executable : String)
     pids = Array(Int32).new
-    all do |pid|
+    all(cpu_time: false, cpu_total: false) do |pid|
       pid_name = pid.name
       pids << pid.pid if pid_name == executable
     end
@@ -42,20 +42,25 @@ struct Hardware::PID
   end
 
   def command
-    cmdline.gsub('\0', ' ')
+    cmdline.gsub '\0', ' '
   end
 
   def cmdline
-    read_proc("cmdline")
+    read_proc "cmdline"
   end
 
   def cpu_time(children = false)
-    current_stat = stat
+    # update stat
+    stat
 
+    # utime  - user
+    # stime  - kernel
+    # cutime - user, including time from children
+    # cstime - kernel, including time from children
     if children
-      current_stat[14].to_i + current_stat[15].to_i + current_stat[16].to_i + current_stat[17].to_i
+      utime + stime + cutime + cstime
     else
-      current_stat[14].to_i + current_stat[15].to_i
+      utime + stime
     end
   end
 
@@ -89,13 +94,45 @@ struct Hardware::PID
   end
 
   def stat
-    # CPU time spent in:
-    # [14] utime - user
-    # [15] stime - kernel
-    # [16] cutime - user, including time from children
-    # [17] cstime - kernel, including time from children
-    read_proc("stat").split ' '
+    @stat = read_proc("stat").split ' '
   end
+
+  # Generate methods based on stat
+  def comm
+    @stat[1]
+  end
+
+  def state
+    @stat[2][1..-2]
+  end
+
+  {% begin %}{% i = 3 %}
+  {% for num in %w(
+                  ppid
+                  pgrp
+                  session
+                  tty_nr
+                  tpgid
+                  flags minflt
+                  cminflt
+                  majflt
+                  cmajflt
+                  utime
+                  stime
+                  cutime
+                  cstime
+                  priority
+                  nice
+                  numthreads
+                  itrealvalue
+                  starttime
+                  vsize
+                  rss) %}
+    def {{num.id}}
+      @stat[{{i}}].to_i
+    end
+    {% i = i + 1 %}
+  {% end %}{% end %}
 
   def statm
     read_proc("statm").split(' ').map &.to_i

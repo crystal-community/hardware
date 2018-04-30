@@ -112,7 +112,7 @@ Returns the PID name based on `#exe` or `#cmdline`.
 
 Returns `@@cpu_total_current`.
 
-`.cpu_total_previous : Int32`
+`#cpu_total_previous : Int32`
 
 Returns `@cpu_total_previous`.
 
@@ -131,6 +131,11 @@ Returns a parsed `/proc/@pid/statm`.
 `#status : Hash(String, String)`
 
 Returns a parsed `/proc/@pid/status`.
+
+`ppid pgrp session tty_nr tpgid flags minflt cminflt majflt cmajflt utime stime cutime cstime priority nice numthreads itrealvalue starttime vsize rss`
+
+Methods that return an `Int32` based on `#stat`
+
 
 ## Examples
 
