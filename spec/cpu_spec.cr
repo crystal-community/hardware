@@ -1,18 +1,17 @@
 require "./spec_helper"
 
 describe Hardware::CPU do
+  cpu = Hardware::CPU.new
   it "parses '/proc/stat'" do
-    Hardware::CPU.info.should be_a NamedTuple(used: Int32, idle: Int32, total: Int32)
+    cpu.info.should be_a NamedTuple(used: Int32, idle: Int32, total: Int32)
   end
 
   it "checks the percentage used" do
-    (0 <= Hardware::CPU.used <= 100).should be_true
+    Hardware::CPU.previous_info.should be_a NamedTuple(used: Int32, idle: Int32, total: Int32)
   end
 
-  it "checks the percentage in each_use" do
-    Hardware::CPU.each_use do |cpu|
-      (0 <= cpu <= 100).should be_true
-      break
-    end
+  it "checks the percentage used" do
+    sleep 0.1
+    (0 <= cpu.used <= 100).should be_true
   end
 end
