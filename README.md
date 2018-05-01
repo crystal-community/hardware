@@ -24,7 +24,7 @@ dependencies:
 
 Creates a new `Hardware::CPU` based on the current memory state.
 
-`.info : NamedTuple(used: Int32, idle: Int32, total: Int32)`
+`#info : NamedTuple(used: Int32, idle: Int32, total: Int32)`
 
 Returns the current used, idle and total CPU time.
 
@@ -32,9 +32,17 @@ Returns the current used, idle and total CPU time.
 
 Returns the previous used, idle and total CPU time. Used to store the previous CPU time informations to calculate the percentage in`.used`.
 
+`#stat : Array(Int32)`
+
+Returns a parsed `/proc/stat`.
+
 `#used(update = true) : Int32`
 
 Returns the CPU used in percentage based on `@@previous_info`.
+
+`user nice system idle iowait irq softirq steal guest guest_nice : Int32`
+
+Instance methods based on `#stat`.
 
 #### Methods included in the `Hardware::Memory` struct:
 
@@ -48,7 +56,7 @@ Returns the available memory in KiloBytes.
 
 `#meminfo : Hash(String, Int64)`
 
-Returns an Hash from a parsed `/proc/meminfo`
+Returns an Hash from a parsed `/proc/meminfo`.
 
 `#percent(used = true) : Int32`
 
@@ -132,10 +140,9 @@ Returns a parsed `/proc/@pid/statm`.
 
 Returns a parsed `/proc/@pid/status`.
 
-`ppid pgrp session tty_nr tpgid flags minflt cminflt majflt cmajflt utime stime cutime cstime priority nice numthreads itrealvalue starttime vsize rss`
+`ppid pgrp session tty_nr tpgid flags minflt cminflt majflt cmajflt utime stime cutime cstime priority nice numthreads itrealvalue starttime vsize rss : Int32`
 
-Methods that return an `Int32` based on `#stat`
-
+Instance methods based on `#stat`.
 
 ## Examples
 

@@ -9,7 +9,7 @@ struct Hardware::PID
   @stat = Array(String).new
 
   def initialize(@pid : Int32 = Process.pid, @cpu_time = true, @cpu_total = true)
-    @cpu_total_previous = @@cpu_total_current = CPU.info[:total] if @cpu_total
+    @cpu_total_previous = @@cpu_total_current = CPU.new.info[:total] if @cpu_total
     @cpu_time_previous = self.cpu_time if @cpu_time
   end
 
@@ -66,7 +66,7 @@ struct Hardware::PID
 
   def cpu_used
     cpu_time_current = cpu_time
-    @@cpu_total_current = CPU.info[:total] if @cpu_total
+    @@cpu_total_current = CPU.new.info[:total] if @cpu_total
 
     # 100 * Usage / Total
     result = 100 * ((cpu_time_current - @cpu_time_previous.to_f32) / (@@cpu_total_current - @cpu_total_previous))
