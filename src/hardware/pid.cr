@@ -120,6 +120,11 @@ struct Hardware::PID
     File.basename (cmd = exe) ? cmd : command
   end
 
+  # Returns `Hardware::Net` for `#pid`
+  def net
+    Net.new @pid
+  end
+
   # Returns a parsed `/proc/``#pid``/stat`.
   def stat
     @stat = Stat.new read_proc("stat").split ' '
@@ -127,7 +132,7 @@ struct Hardware::PID
 
   # Parse stat initialized at `Hadware::PID#stat`
   struct Stat
-    @stat : Array(String) = Array(String).new
+    @stat = Array(String).new
 
     def initialize(@stat)
     end

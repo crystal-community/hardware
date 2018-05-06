@@ -85,24 +85,16 @@ describe Hardware::PID do
       end
     end
 
-    it "returns memory used" do
-      (1 < pid.memory).should be_true
-    end
+    it "returns memory used" { (1 < pid.memory).should be_true }
 
-    it "parses name" do
-      pid.name.should eq "crystal-run-spec.tmp"
-    end
+    it "parses name" { pid.name.should eq "crystal-run-spec.tmp" }
 
-    it "parses stat" do
-      pid.stat.should be_a Hardware::PID::Stat
-    end
+    it "parses name" { pid.net.should be_a Hardware::Net }
 
-    it "parses statm" do
-      pid.statm.should be_a Array(Int32)
-    end
+    it "parses stat" { pid.stat.should be_a Hardware::PID::Stat }
 
-    it "parses status" do
-      pid.status.should be_a Hash(String, String)
-    end
+    it "parses statm" { pid.statm.should be_a Array(Int32) }
+
+    it "parses status" { pid.status.should be_a Hash(String, String) }
   end
 end

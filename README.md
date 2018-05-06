@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/release/crystal-community/hardware.svg)](https://github.com/crystal-community/hardware/releases)
 [![Build Status](https://travis-ci.org/crystal-community/hardware.svg?branch=master)](https://travis-ci.org/crystal-community/hardware)
 
-This is a very basic module to help get CPU and memory usage of the current running OS
+A basic module to get CPU, memory and network informations of the current running OS and its processes.
 
 Tested on Linux.
 
