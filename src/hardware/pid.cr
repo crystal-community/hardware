@@ -15,11 +15,13 @@ struct Hardware::PID
   getter pid : Int32
   # Used to avoid duplicate operations when lots of `Hardware::PID` are created (like a top implementation)
   class_property cpu_total_current : Int32 = 0
+  # Previous `CPU.new.info[:total]`.
   property cpu_total_previous : Int32 = 0
+  # Previous `#cpu_time`.
   property cpu_time_previous : Int32 = 0
   @cpu_time : Bool
   @cpu_total : Bool
-  @stat : Array(String) = Array(String).new
+  @stat = Stat.new Array(String).new
 
   # Creates a new `Hardware::PID`
   # Set to false to avoid setting `#cpu_total_current` (useful if lots of `Hardware::PID` are used)
@@ -79,9 +81,9 @@ struct Hardware::PID
     # cutime - user, including time from children
     # cstime - kernel, including time from children
     if children
-      utime + stime + cutime + cstime
+      @stat.utime + @stat.stime + @stat.cutime + @stat.cstime
     else
-      utime + stime
+      @stat.utime + @stat.stime
     end
   end
 
@@ -120,48 +122,56 @@ struct Hardware::PID
 
   # Returns a parsed `/proc/``#pid``/stat`.
   def stat
-    @stat = read_proc("stat").split ' '
+    @stat = Stat.new read_proc("stat").split ' '
   end
 
-  # Returns the "comm" field of `#stat`.
-  def comm : String
-    @stat[1]
-  end
+  # Parse stat initialized at `Hadware::PID#stat`
+  struct Stat
+    @stat : Array(String) = Array(String).new
 
-  # Returns the "state" field of `#stat`.
-  def state : String
-    @stat[2][1..-2]
-  end
-
-  # Generate methods based on stat
-  {% begin %}{% i = 3 %}
-  {% for num in %w(
-                  ppid
-                  pgrp
-                  session
-                  tty_nr
-                  tpgid
-                  flags minflt
-                  cminflt
-                  majflt
-                  cmajflt
-                  utime
-                  stime
-                  cutime
-                  cstime
-                  priority
-                  nice
-                  numthreads
-                  itrealvalue
-                  starttime
-                  vsize
-                  rss) %}
-    # Returns the "{{num.id}}" field of `#stat`.
-    def {{num.id}} : Int32
-      @stat[{{i}}].to_i
+    def initialize(@stat)
     end
-    {% i = i + 1 %}
-  {% end %}{% end %}
+
+    # Returns the "comm" field of `#stat`.
+    def comm : String
+      @stat[1]
+    end
+
+    # Returns the "state" field of `#stat`.
+    def state : String
+      @stat[2][1..-2]
+    end
+
+    # Generate methods based on stat
+    {% begin %}{% i = 3 %}
+    {% for num in %w(
+                    ppid
+                    pgrp
+                    session
+                    tty_nr
+                    tpgid
+                    flags minflt
+                    cminflt
+                    majflt
+                    cmajflt
+                    utime
+                    stime
+                    cutime
+                    cstime
+                    priority
+                    nice
+                    numthreads
+                    itrealvalue
+                    starttime
+                    vsize
+                    rss) %}
+      # Returns the "{{num.id}}" field of `#stat`.
+      def {{num.id}} : Int32
+        @stat[{{i}}].to_i
+      end
+      {% i = i + 1 %}
+    {% end %}{% end %}
+  end
 
   # Returns a parsed `/proc/``#pid``/statm`.
   def statm : Array(Int32)

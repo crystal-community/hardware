@@ -94,7 +94,7 @@ describe Hardware::PID do
     end
 
     it "parses stat" do
-      pid.stat.should be_a Array(String)
+      pid.stat.should be_a Hardware::PID::Stat
     end
 
     it "parses statm" do
