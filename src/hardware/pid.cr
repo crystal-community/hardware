@@ -55,8 +55,7 @@ struct Hardware::PID
   def self.get_pids(executable : String)
     pids = Array(Int32).new
     all(cpu_time: false, cpu_total: false) do |pid|
-      pid_name = pid.name
-      pids << pid.pid if pid_name == executable
+      pids << pid.pid if pid.name == executable
     end
     pids
   end

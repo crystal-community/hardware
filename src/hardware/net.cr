@@ -5,8 +5,8 @@
 # net = Hardware::Net.new # System network stats
 # old_in, old_out = net.in_octets, net.out_octets
 # loop do
-#   net = Hardware::Net.new # Update network stats
 #   sleep 1
+#   net = Hardware::Net.new # Update network stats
 #   now_in, now_out = net.in_octets, net.out_octets
 #   puts "down: #{(now_in - old_in) / 1000}kB/s | up: #{(now_out - old_out) / 1000}kB/s" # => down: 427kB/s | up: 24kB/s
 #   old_in, old_out = now_in, now_out
@@ -42,7 +42,7 @@ struct Hardware::Net
                   OutMcastOctets
                   InBcastOctets
                   OutBcastOctets
-                  InCsumEsrrors
+                  InCsumErrors
                   InNoEctPkts
                   InEct1Pkts
                   InEct0Pkts
