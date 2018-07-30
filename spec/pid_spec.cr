@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Hardware::PID do
   describe "class methods" do
     it "tests .all " do
-      Hardware::PID.all { |pid| pid.should be_a Hardware::PID }
+      Hardware::PID.all &.should be_a Hardware::PID
     end
 
     it "tests .get_pids of the current process" do
@@ -17,7 +17,7 @@ describe Hardware::PID do
 
   describe "instance methods" do
     it "creates a Hardware::PID based on a name" do
-      Hardware::PID.new("crystal-run-spec.tmp", cpu_time: false, cpu_total: false).pid.should eq Process.pid
+      Hardware::PID.new("crystal-run-spec.tmp", cpu_total: false).pid.should eq Process.pid
     end
 
     pid = Hardware::PID.new
@@ -29,7 +29,7 @@ describe Hardware::PID do
     end
 
     it "parses exe" do
-      File.basename(pid.exe.not_nil!).should eq "crystal-run-spec.tmp"
+      File.basename(pid.exe).should eq "crystal-run-spec.tmp"
     end
 
     it "parses command" do
@@ -40,39 +40,40 @@ describe Hardware::PID do
       describe "cpu_time" do
         pid1 = Hardware::PID.new(pid: 1)
         it "without children" do
-          (1 < pid1.cpu_time).should be_true
+          pid1.cpu_time.should be > 1
         end
 
         it "with children" do
-          (1 < pid1.cpu_time(children: true)).should be_true
+          pid1.cpu_time(children: true).should be > 1
         end
       end
 
-      describe "cpu_used with updates" do
+      describe "cpu_usage" do
         pid1 = Hardware::PID.new(pid: 1)
 
         it "percentage" do
           # Simulate CPU use if no activity
-          pid1.cpu_time_previous = pid1.cpu_time - 9
           sleep 0.1
-          (1 < pid1.cpu_used <= 100).should be_true
+          usage = pid1.cpu_usage
+          usage.should be > 0_f32
+          usage.should be <= 100_f32
         end
 
         it "cpu_total_previous equal to cpu_total_current" do
           pid1.cpu_total_previous.should eq Hardware::PID.cpu_total_current
         end
       end
-      describe "cpu_used with no updates" do
+      describe "cpu_usage with no updates" do
         Hardware::PID.cpu_total_current = -1
-        pid1 = Hardware::PID.new(pid: 1, cpu_time: false, cpu_total: false)
+        pid1 = Hardware::PID.new(pid: 1, cpu_total: false)
         pid1.cpu_time_previous = -1
 
         it "type" do
-          pid1.cpu_used.should be_a Float32
+          pid1.cpu_usage.should be_a Float32
         end
 
-        it "cpu_time_previous not updated" do
-          pid1.cpu_time_previous.should eq -1
+        it "cpu_time_previous" do
+          pid1.cpu_time_previous.should be > 1
         end
 
         it "cpu_total_current not updated" do
@@ -85,7 +86,7 @@ describe Hardware::PID do
       end
     end
 
-    it "returns memory used" { (1 < pid.memory).should be_true }
+    it "returns memory usage" { pid.memory.should be > 1 }
 
     it "parses name" { pid.name.should eq "crystal-run-spec.tmp" }
 

@@ -38,9 +38,9 @@ app = Hardware::PID.new "firefox" # Take the first matching PID
 
 loop do
   sleep 1
-  cpu.used.to_i     #=> 17
-  pid.cpu_used      #=> 1.5
-  app.cpu_used.to_i #=> 4
+  cpu.usage.to_i     #=> 17
+  pid.cpu_usage      #=> 1.5
+  app.cpu_usage.to_i #=> 4
 end
 ```
 ## Development

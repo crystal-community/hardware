@@ -4,21 +4,35 @@
 # cpu = Hardware::CPU.new
 # loop do
 #   sleep 1
-#   cpu.used.to_i # => 17
+#   cpu.usage.to_i # => 17
 # end
 # ```
 struct Hardware::CPU
-  # Returns the previous used, idle and total CPU time. Used to store the previous CPU time informations to calculate the percentage in`.used`.
-  class_property previous_info : NamedTuple(used: Int32, idle: Int32, total: Int32) = {used: 0, idle: 0, total: 0}
-  @stat = Array(Int32).new
+  # Previous used CPU time
+  getter previous_used : Int32 = 0
+  # Previous idle CPU time
+  getter previous_idle_wait : Int32 = 0
+  # Returns a parsed `/proc/stat`
+  getter stat : Array(Int32)
 
   # Creates a new `Hardware::CPU` based on the current memory state.
   def initialize
+    @stat = update_stat
   end
 
-  # Returns a parsed `/proc/stat`.
-  def stat : Array(Int32)
+  # Update the stats stored in `#stat`
+  def update_stat : Array(Int32)
     @stat = File.read("/proc/stat").lines.first[5..-1].split(' ').map &.to_i
+  end
+
+  # Returns the CPU time used, which includes `idle` and `iowait`
+  def idle_wait : Int32
+    idle + iowait
+  end
+
+  # Returns the used CPU time, which includes `user`, `nice`, `system`, `irq`, `softirq` and `steal`
+  def used : Int32
+    user + nice + system + irq + softirq + steal
   end
 
   # Generate methods based on stat
@@ -31,26 +45,21 @@ struct Hardware::CPU
     {% i = i + 1 %}
   {% end %}{% end %}
 
-  # Returns the current used, idle and total CPU time.
-  def info : NamedTuple(used: Int32, idle: Int32, total: Int32)
-    # update stat
-    stat
-    # Array: user nice system idle iowait irq softirq steal guest guest_nice
-    {
-      used:  used = user + nice + system + irq + softirq + steal,
-      idle:  idle_cpu = idle + iowait,
-      total: used + idle_cpu,
-    }
+  # Returns the total CPU time, the sum of `#idle` and `#used`
+  def total : Int32
+    idle_wait + used
   end
 
   # Returns the CPU used in percentage based on `.previous_info`.
-  def used(update = true) : Float32
-    current_info = info
+  def usage(update = true) : Float32
+    # Update stats
+    update_stat
+    current_used, current_idle_wait = used, idle_wait
 
     # 100 * Usage / Total
-    result = (current_info[:used] - @@previous_info[:used]).to_f32 / (current_info[:total] - @@previous_info[:total]) * 100
+    result = (current_used - @previous_used).to_f32 / (current_used + current_idle_wait - @previous_used - @previous_idle_wait) * 100
 
-    @@previous_info = current_info if update
+    @previous_used, @previous_idle_wait = current_used, current_idle_wait if update
     result
   end
 end

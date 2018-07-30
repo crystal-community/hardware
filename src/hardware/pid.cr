@@ -6,8 +6,8 @@
 #
 # loop do
 #   sleep 1
-#   pid.cpu_used      # => 1.5
-#   app.cpu_used.to_i # => 4
+#   pid.cpu_usage      # => 1.5
+#   app.cpu_usage.to_i # => 4
 # end
 # ```
 struct Hardware::PID
@@ -15,46 +15,45 @@ struct Hardware::PID
   getter pid : Int32
   # Used to avoid duplicate operations when lots of `Hardware::PID` are created (like a top implementation)
   class_property cpu_total_current : Int32 = 0
-  # Previous `CPU.new.info[:total]`.
+  # Previous `CPU.new.total`.
   property cpu_total_previous : Int32 = 0
   # Previous `#cpu_time`.
   property cpu_time_previous : Int32 = 0
-  @cpu_time : Bool
   @cpu_total : Bool
   @stat = Stat.new Array(String).new
 
   # Creates a new `Hardware::PID`
   # Set to false to avoid setting `#cpu_total_current` (useful if lots of `Hardware::PID` are used)
-  def initialize(@pid : Int32 = Process.pid, @cpu_time = true, @cpu_total = true)
-    @cpu_total_previous = @@cpu_total_current = CPU.new.info[:total] if @cpu_total
-    @cpu_time_previous = self.cpu_time if @cpu_time
+  def initialize(@pid : Int32 = Process.pid, @cpu_total = true)
+    raise "pid #{pid} doesn't exist" if !exists?
+    @@cpu_total_current = CPU.new.total if @cpu_total
   end
 
   # Creates a new `Hardware::PID` by finding the `executable`'s pid.
-  def initialize(executable : String, cpu_time = true, cpu_total = true)
+  def initialize(executable : String, cpu_total = true)
     raise "no pid for '#{name}' exists" unless pid = Hardware::PID.get_pids(executable).first?
-    initialize pid, cpu_time, cpu_total
+    initialize pid, cpu_total
   end
 
   private def read_proc(file : String) : String
-    File.read "/proc/#{@pid}/" + file
+    File.read "/proc/#{@pid}/#{file}"
   rescue ex
     raise "#{ex}\nVerify if a process that have a pid number of '#{pid}' exists"
   end
 
   # Yields a `Hardware::PID` for each PID present on the system.
-  def self.all(cpu_time = false, cpu_total = false)
+  def self.all(cpu_total = false) : Nil
     Dir.each_child "/proc" do |pid_dir|
       if pid = pid_dir.to_i?
-        yield Hardware::PID.new(pid: pid, cpu_time: cpu_time, cpu_total: cpu_total)
+        yield Hardware::PID.new(pid: pid, cpu_total: cpu_total)
       end
     end
   end
 
   # Return all pids corresponding of a given `executable` name.
-  def self.get_pids(executable : String)
+  def self.get_pids(executable : String) : Array(Int32)
     pids = Array(Int32).new
-    all(cpu_time: false, cpu_total: false) do |pid|
+    all(cpu_total: false) do |pid|
       pids << pid.pid if pid.name == executable
     end
     pids
@@ -71,7 +70,7 @@ struct Hardware::PID
   end
 
   # Returns the CPU time without including ones from `children` processes.
-  def cpu_time(children = false)
+  def cpu_time(children = false) : Int32
     # update stat
     stat
 
@@ -87,94 +86,49 @@ struct Hardware::PID
   end
 
   # Returns the CPU used in percentage.
-  def cpu_used : Float32
+  def cpu_usage : Float32
     cpu_time_current = cpu_time
-    @@cpu_total_current = CPU.new.info[:total] if @cpu_total
+    @@cpu_total_current = CPU.new.total if @cpu_total
 
     # 100 * Usage / Total
-    result = 100 * ((cpu_time_current - @cpu_time_previous.to_f32) / (@@cpu_total_current - @cpu_total_previous))
+    result = (cpu_time_current - @cpu_time_previous).to_f32 / (@@cpu_total_current - @cpu_total_previous) * 100
 
-    @cpu_time_previous = cpu_time_current if @cpu_time
+    @cpu_time_previous = cpu_time_current
+
     @cpu_total_previous = @@cpu_total_current
     result
   end
 
   # Returns `/proc/``#pid``/exe` if readable.
-  def exe : String?
-    if File.readable? path = "/proc/#{@pid}/exe"
-      File.real_path path
-    end
-  rescue
-    nil
+  def exe : String
+    File.real_path "/proc/#{@pid}/exe"
+  end
+
+  def exists? : Bool
+    Dir.exists? "/proc/#{@pid}"
   end
 
   # Returns the actual memory used by the process.
-  def memory
+  def memory : Int32
     # Assuming that PAGESIZE is 4096 kB
     statm.first * 4
   end
 
   # Returns the PID name based on `#exe` or `#cmdline`.
-  def name
-    File.basename (cmd = exe) ? cmd : command
+  def name : String
+    File.basename exe
+  rescue
+    File.basename command
   end
 
   # Returns `Hardware::Net` for `#pid`
-  def net
+  def net : Net
     Net.new @pid
   end
 
   # Returns a parsed `/proc/``#pid``/stat`.
-  def stat
+  def stat : Stat
     @stat = Stat.new read_proc("stat").split ' '
-  end
-
-  # Parse stat initialized at `Hadware::PID#stat`
-  struct Stat
-    @stat = Array(String).new
-
-    def initialize(@stat)
-    end
-
-    # Returns the "comm" field of `#stat`.
-    def comm : String
-      @stat[1]
-    end
-
-    # Returns the "state" field of `#stat`.
-    def state : String
-      @stat[2][1..-2]
-    end
-
-    # Generate methods based on stat
-    {% begin %}{% i = 3 %}
-    {% for num in %w(
-                    ppid
-                    pgrp
-                    session
-                    tty_nr
-                    tpgid
-                    flags minflt
-                    cminflt
-                    majflt
-                    cmajflt
-                    utime
-                    stime
-                    cutime
-                    cstime
-                    priority
-                    nice
-                    numthreads
-                    itrealvalue
-                    starttime
-                    vsize
-                    rss) %}
-      # Returns the "{{num.id}}" field of `#stat`.
-      def {{num.id}} : Int32
-        @stat[{{i}}].to_i
-      end
-      {% i = i + 1 %}
-    {% end %}{% end %}
   end
 
   # Returns a parsed `/proc/``#pid``/statm`.

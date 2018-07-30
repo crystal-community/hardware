@@ -20,10 +20,14 @@ describe Hardware::Memory do
   end
 
   it "checks the percentage available" do
-    (1 < memory.percent(used: false) <= 100).should be_true
+    percent = memory.percent(used: false)
+    percent.should be > 1
+    percent.should be <= 100
   end
 
   it "checks the percentage used" do
-    (1 < memory.percent(used: true) <= 100).should be_true
+    percent = memory.percent(used: true)
+    percent.should be > 1
+    percent.should be <= 100
   end
 end
