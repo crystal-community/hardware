@@ -1,20 +1,24 @@
-require "./spec_helper"
+require "spec"
+require "../src/cpu"
 
 describe Hardware::CPU do
-  cpu = Hardware::CPU.new
-  it "parses '/proc/stat'" do
-    cpu.stat.should be_a Array(Int32)
+  it "returns the usage compared to a previous CPU'" do
+    cpu = Hardware::CPU.new
+    sleep 6
+    cpu_usage = cpu.usage Hardware::CPU.new
+    cpu_usage.should be > 0
+    cpu_usage.should be <= 100
   end
 
-  it "checks the percentage used" do
-    cpu.previous_used.should be_a Int32
-    cpu.previous_idle_wait.should be_a Int32
+  it "parses the last field (guest_nice)" do
+    Hardware::CPU.new.guest_nice.should be_a Int32
   end
 
-  it "checks the percentage used" do
-    sleep 0.1
-    usage = cpu.usage
-    usage.should be >= 0
-    usage.should be <= 100
+  it "returns the usage by mutating self" do
+    cpu = Hardware::CPU.new
+    sleep 6
+    cpu_usage = cpu.usage!
+    cpu_usage.should be > 0
+    cpu_usage.should be <= 100
   end
 end

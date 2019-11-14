@@ -1,4 +1,5 @@
-require "./spec_helper"
+require "spec"
+require "../src/net"
 
 describe Hardware::Net do
   net = Hardware::Net.new
