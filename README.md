@@ -33,14 +33,14 @@ memory.used         #=> 2731404
 memory.percent.to_i #=> 32
 
 cpu = Hardware::CPU.new
-pid = Hardware::PID.new           # Default is Process.pid
-app = Hardware::PID.new "firefox" # Take the first matching PID
+pid_stat = Hardware::PID.new.stat            # Default is Process.pid
+app_stat = Hardware::PID.new("firefox").stat # Take the first matching PID
 
 loop do
   sleep 1
-  cpu.usage.to_i     #=> 17
-  pid.cpu_usage      #=> 1.5
-  app.cpu_usage.to_i #=> 4
+  p cpu.usage!.to_i          #=> 17
+  p pid_stat.cpu_usage!      #=> 1.5
+  p app_stat.cpu_usage!.to_i #=> 4
 end
 ```
 ## Development

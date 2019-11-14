@@ -1,4 +1,4 @@
-require "./spec_helper"
+require "spec"
 
 describe Hardware do
 end

@@ -1,4 +1,5 @@
-require "./spec_helper"
+require "spec"
+require "../src/memory"
 
 describe Hardware::Memory do
   memory = Hardware::Memory.new
