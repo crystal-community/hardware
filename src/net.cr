@@ -29,7 +29,7 @@ struct Hardware::Net
     key = ""
     tcp_ext_keys = Array(String).new
     ip_ext_keys = Array(String).new
-    File.open "/proc#{'/' + @pid.to_s if @pid}/net/netstat", &.each_char do |char|
+    File.open (@pid ? "/proc/#{@pid}/net/netstat" : "/proc/net/netstat"), &.each_char do |char|
       case char
       when ':'
         key = buffer.to_s
