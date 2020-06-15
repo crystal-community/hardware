@@ -13,12 +13,12 @@
 # end
 # ```
 struct Hardware::Net
-  getter pid : Int32? = nil
+  getter pid : Int64? = nil
   getter tcp_ext : Hash(String, Int64) = Hash(String, Int64).new
   getter ip_ext : Hash(String, Int64) = Hash(String, Int64).new
 
   # Creates a new `Hardware::Net` for the system, or a given PID.
-  def initialize(@pid : Int32? = nil)
+  def initialize(@pid : Int64? = nil)
     buffer = IO::Memory.new
     # netstat content:
     # TcpExt: SomeKey OtherKey ...
