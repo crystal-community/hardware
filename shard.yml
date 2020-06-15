@@ -5,6 +5,6 @@ authors:
   - bararchy <bar.hofesh@safe-t.com>
   - Julien Reichardt <mi@jrei.ch>
 
-crystal: 0.31.1
+crystal: 0.35.0
 
 license: MIT
