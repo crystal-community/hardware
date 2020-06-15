@@ -57,7 +57,6 @@ struct Hardware::Net
 
       if char == '\n'
         keys_row = !keys_row
-        # column_num = 0
       end
     end
   end
