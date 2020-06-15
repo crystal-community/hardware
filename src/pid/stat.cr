@@ -9,7 +9,7 @@
 # ```
 struct Hardware::PID::Stat
   getter data : Array(String) = Array(String).new
-  getter pid : Int32
+  getter pid : Int64
   @cpu : CPU?
   @cpu_time : Int32
   @cpu_time_children : Int32
@@ -41,7 +41,7 @@ struct Hardware::PID::Stat
     end
   end
 
-  def initialize(@pid : Int32 = Process.pid, @cpu : CPU? = CPU.new)
+  def initialize(@pid : Int64 = Process.pid, @cpu : CPU? = CPU.new)
     parse_stat_file
     @cpu_time = (utime + stime).to_i
     @cpu_time_children = @cpu_time + (cutime + cstime).to_i

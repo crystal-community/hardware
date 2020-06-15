@@ -8,10 +8,10 @@ require "./cpu"
 # ```
 struct Hardware::PID
   # Pid number
-  getter number : Int32
+  getter number : Int64
 
   # Creates a new `Hardware::PID`.
-  def initialize(@number : Int32 = Process.pid)
+  def initialize(@number : Int64 = Process.pid)
     raise "pid #{number} doesn't exist" if !exists?
   end
 
@@ -37,14 +37,14 @@ struct Hardware::PID
   # Yields a `Hardware::PID` for each PID present on the system.
   def self.each(& : PID ->) : Nil
     Dir.each_child "/proc" do |pid_dir|
-      if pid = pid_dir.to_i?
+      if pid = pid_dir.to_i64?
         yield Hardware::PID.new pid
       end
     end
   end
 
   # Yield each pids corresponding to a given `executable` name.
-  def self.get_pids(executable : String, & : Int32 ->)
+  def self.get_pids(executable : String, & : Int64 ->)
     each do |pid|
       yield pid.number if pid.name == executable
     end
