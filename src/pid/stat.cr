@@ -147,6 +147,6 @@ struct Hardware::PID::Stat
     result = (cpu_time(children) - previous_cpu_time) / (current_cpu.total - cpu.total) * 100
     @cpu = current_cpu
 
-    result
+    result.nan? ? 0_f64 : result
   end
 end
