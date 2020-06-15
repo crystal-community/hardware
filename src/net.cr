@@ -54,16 +54,17 @@ struct Hardware::Net
       else
         buffer << char
       end
+
       if char == '\n'
         keys_row = !keys_row
-        column_num = 0
+        # column_num = 0
       end
     end
   end
 
   # Generate methods based on stat
   {% begin %}
-  {% i = 0 %} 
+  {% i = 0 %}
   {% for stat in %w(
                    InNoRoutes
                    InTruncatedPkts

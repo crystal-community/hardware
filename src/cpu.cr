@@ -27,7 +27,7 @@ struct Hardware::CPU
     # Returns the {{stat}} stat field.
     getter {{stat.id}} : Int32 { parse_stat_file; @{{stat.id}} || raise "Field not parsed: '{{stat.id}}'" }
     {% end %}
-    
+
     private def parse_stat_line(column_num : Int32, buffer : IO)
       case column_num
       {% i = 1 %}
