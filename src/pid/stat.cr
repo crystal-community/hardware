@@ -84,7 +84,7 @@ struct Hardware::PID::Stat
           column_num += 1
         when 2 # skip if there is a parenthesis after the comm field
         else
-          buffer << char 
+          buffer << char
         end
       when ' ', '\n'
         next if buffer.empty?
