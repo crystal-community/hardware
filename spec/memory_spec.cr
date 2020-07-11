@@ -1,12 +1,18 @@
 require "spec"
-require "../src/memory"
+{% if flag?(:win32) %}
+  require "../src/win32/memory"
+{% else %}
+  require "../src/unix/memory"
+{% end %}
 
 describe Hardware::Memory do
   memory = Hardware::Memory.new
 
-  it "parses '/proc/meminfo'" do
-    memory.meminfo.should be_a Hash(String, Int64)
-  end
+  {% unless flag?(:win32) %}
+    it "parses '/proc/meminfo'" do
+      memory.meminfo.should be_a Hash(String, Int64)
+    end
+  {% end %}
 
   it "checks the `total` type" do
     memory.total.should be_a Int32
