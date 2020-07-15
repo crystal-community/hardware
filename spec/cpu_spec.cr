@@ -1,5 +1,9 @@
 require "spec"
-require "../src/cpu"
+{% if flag?(:win32) %}
+  require "../src/win32/cpu"
+{% else %}
+  require "../src/unix/cpu"
+{% end %}
 
 def assert_cpu_load(&)
   # Wait enough time to have measurable load
