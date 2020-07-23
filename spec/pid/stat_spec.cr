@@ -18,15 +18,14 @@ describe Hardware::PID::Stat do
     channel = Channel(Float64).new
     pids_count = 0
     Hardware::PID.each do |pid|
-      begin
-        spawn do
-          stat = pid.stat
-          sleep 4
-          channel.send stat.cpu_usage!
-        end
-        pids_count += 1
+      spawn do
+        stat = pid.stat
+        sleep 4
+        channel.send stat.cpu_usage!
       rescue ex : File::NotFoundError
+        channel.send 0
       end
+      pids_count += 1
     end
     max_cpu_usage = 0
     pids_count.times do
