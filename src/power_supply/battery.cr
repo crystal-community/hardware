@@ -1,3 +1,5 @@
+require "../error/invalid_device"
+
 require "../power_supply"
 
 # Battery related informations
@@ -17,20 +19,21 @@ class Hardware::Battery < Hardware::PowerSupply
     Full
   end
 
-  def initialize(supply_name : String)
-    @current_device_path = Path.new("#{DEVICE_DIRECTORY}/#{supply_name}")
+  def initialize(@supply_name : String)
+    @current_device_path = Path.new(DEVICE_DIRECTORY, supply_name)
 
-    unless type == Type::Battery
-      raise "Not a battery"
+    unless type == "Battery"
+      raise InvalidDevice.new "Not a battery"
     end
   end
 
-  def self.new_single
-    battery_power_device = self.entries_with_type.find { |entry| entry.type == Type::Battery }
+  # Select one of the battery device available
+  def initialize
+    battery_power_device = PowerSupply.entries.find { |entry| entry.is_a? Battery }
     if battery_power_device
-      self.new(battery_power_device.name)
+      initialize(battery_power_device.supply_name)
     else
-      raise "No battery device found"
+      raise InvalidDevice.new "No battery device found"
     end
   end
 

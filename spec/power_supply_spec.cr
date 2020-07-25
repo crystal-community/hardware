@@ -4,17 +4,25 @@ require "../src/power_supply"
 battery_exists = false
 
 begin
-  Hardware::Battery.new_single
+  Hardware::Battery.new
   battery_exists = true
 rescue
 end
 
 if battery_exists
   describe Hardware::PowerSupply do
-    power = Hardware::Battery.new_single
+    power = Hardware::Battery.new
 
     it "checks the `type` type" do
-      power.type.should be_a Hardware::PowerSupply::Type
+      power.type.should be_a String
+    end
+
+    it "checks the `entries_name` type" do
+      Hardware::PowerSupply.entries_name.should be_a Array(String)
+    end
+
+    it "checks the `entries` type" do
+      Hardware::PowerSupply.entries.should be_a Array(Hardware::PowerSupply)
     end
 
     it "checks the `serial_number` type" do

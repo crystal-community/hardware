@@ -4,17 +4,17 @@ require "../../src/power_supply/battery"
 battery_exists = false
 
 begin
-  Hardware::Battery.new_single
+  Hardware::Battery.new
   battery_exists = true
 rescue
 end
 
 if battery_exists
   describe Hardware::Battery do
-    battery = Hardware::Battery.new_single
+    battery = Hardware::Battery.new
 
     it "checks the `type` type" do
-      battery.type.should be_a Hardware::PowerSupply::Type
+      battery.type.should be_a String
     end
 
     it "checks the `capacity` type" do
