@@ -7,27 +7,58 @@ require "./error/invalid_device"
 # # `ls /sys/class/power_supply/`
 # power_supply = Hardware::PowerSupply.new("BAT0") # Specify the batery device name by yourself
 # ```
-class Hardware::PowerSupply
-  DEVICE_DIRECTORY = "/sys/class/power_supply"
+abstract struct Hardware::PowerSupply
+  class_getter device_directory : Path = Path.new("/sys/class/power_supply")
 
   @current_device_path : Path
   getter supply_name : String
 
   @type : String | Nil = nil
+  # Describes the main type of the supply
+  # It can be Battery, UPS, Mains, or USB. See Hardware::PowerSupply::Type
+  getter type : String do
+    unless @type
+      @type = File.read(@current_device_path / "type").rstrip
+    end
+    @type
+  end
+
   @serial_number : String | Nil = nil
+  # Reports the serial number of the device
+  getter serial_number : String do
+    unless @serial_number
+      @serial_number = File.read(@current_device_path / "serial_number").rstrip
+    end
+    @serial_number
+  end
+
   @model_name : String | Nil = nil
+  # Reports the name of the device model
+  getter model_name : String do
+    unless @model_name
+      @model_name = File.read(@current_device_path / "model_name").rstrip
+    end
+    @model_name
+  end
+
   @manufacturer : String | Nil = nil
+  # Reports the name of the device manufacturer
+  getter manufacturer : String do
+    unless @manufacturer
+      @manufacturer = File.read(@current_device_path / "manufacturer").rstrip
+    end
+    @manufacturer
+  end
 
   def initialize(@supply_name : String, check_if_exists : Bool = true)
-    @current_device_path = Path.new(DEVICE_DIRECTORY, supply_name)
+    @current_device_path = @@device_directory / @supply_name
     if check_if_exists && !Dir.exists?(@current_device_path)
       raise InvalidDevice.new "#{supply_name} is not a valid device name"
     end
   end
 
   def self.new_with_type(supply_name : String) : PowerSupply
-    power_supply = self.new(supply_name)
-    type = power_supply.type
+    type = File.read(@@device_directory / supply_name / "type").rstrip
     case type
     when "Battery"
       Hardware::Battery.new(supply_name)
@@ -38,7 +69,7 @@ class Hardware::PowerSupply
     when "USB"
       Hardware::USB.new(supply_name)
     else
-      power_supply
+      raise InvalidDevice.new "#{supply_name} does not have a valid device type"
     end
   end
 
@@ -49,13 +80,7 @@ class Hardware::PowerSupply
 
   # Get entries name of the available device
   def self.entries_name : Array(String)
-    entries = [] of String
-    Dir.each DEVICE_DIRECTORY do |filename|
-      unless filename.starts_with?('.')
-        entries << filename
-      end
-    end
-    entries
+    Dir.new(device_directory).each_child.to_a
   end
 
   def self.entries : Array(PowerSupply)
@@ -64,37 +89,8 @@ class Hardware::PowerSupply
     end
   end
 
-  # Describes the main type of the supply
-  # It can be Battery, UPS, Mains, or USB. See Hardware::PowerSupply::Type
-  def type : String | Nil
-    unless @type
-      @type = File.read(@current_device_path / "type").rstrip
-    end
-    @type
-  end
-
-  # Reports the serial number of the device
-  def serial_number : String | Nil
-    unless @serial_number
-      @serial_number = File.read(@current_device_path / "serial_number").rstrip
-    end
-    @serial_number
-  end
-
-  # Reports the name of the device model
-  def model_name : String | Nil
-    unless @model_name
-      @model_name = File.read(@current_device_path / "model_name").rstrip
-    end
-    @model_name
-  end
-
-  # Reports the name of the device manufacturer
-  def manufacturer : String | Nil
-    unless @manufacturer
-      @manufacturer = File.read(@current_device_path / "manufacturer").rstrip
-    end
-    @manufacturer
+  def self.each : Iterator(String)
+    Dir.new(device_directory).each_child
   end
 end
 

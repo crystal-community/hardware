@@ -10,7 +10,7 @@ require "../power_supply"
 # battery = Hardware::Battery.new("BAT0") # Specify the batery device name by yourself
 # battery = Hardware::Battery.new_single  # Will be looking for one available battery device
 # ```
-class Hardware::Battery < Hardware::PowerSupply
+struct Hardware::Battery < Hardware::PowerSupply
   enum Status
     Unknown
     Charging
@@ -20,7 +20,7 @@ class Hardware::Battery < Hardware::PowerSupply
   end
 
   def initialize(@supply_name : String)
-    @current_device_path = Path.new(DEVICE_DIRECTORY, supply_name)
+    @current_device_path = @@device_directory / @supply_name
 
     unless type == "Battery"
       raise InvalidDevice.new "Not a battery"
@@ -28,10 +28,17 @@ class Hardware::Battery < Hardware::PowerSupply
   end
 
   # Select one of the battery device available
-  def initialize
-    battery_power_device = PowerSupply.entries.find { |entry| entry.is_a? Battery }
+  def self.new : Hardware::Battery
+    battery_power_device : Battery | Nil = nil
+    PowerSupply.each.each do |device_name|
+      temp_device : PowerSupply = PowerSupply.new_with_type(device_name)
+      if temp_device.is_a?(Battery)
+        battery_power_device = temp_device
+        break
+      end
+    end
     if battery_power_device
-      initialize(battery_power_device.supply_name)
+      battery_power_device
     else
       raise InvalidDevice.new "No battery device found"
     end
