@@ -10,8 +10,8 @@ describe Hardware::PowerSupply do
   rescue
     # If it did not found any battery device, then use the mock data in the
     # `spec/power_supply/mock/power_supply`
-    Hardware::Battery.device_directory = Path.new({{ __DIR__ }})
-      .join("power_supply", "mock", "power_supply")
+    Hardware::Battery.device_directory = Path
+      .new({{ __DIR__ }}, "power_supply", "mock", "power_supply")
     power = Hardware::Battery.new
   end
 
