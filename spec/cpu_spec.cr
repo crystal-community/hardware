@@ -21,7 +21,7 @@ describe Hardware::CPU do
   end
 
   it "parses the last field (guest_nice)" do
-    Hardware::CPU.new.guest_nice.should be_a Int32
+    Hardware::CPU.new.guest_nice.should be_a Int64
   end
 
   it "returns the usage by mutating self" do
