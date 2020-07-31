@@ -1,3 +1,5 @@
+require "./error"
+
 # Memory related informations of your system.
 #
 # Most values are in kB, except HugePages ones.

@@ -1,3 +1,5 @@
+require "./error"
+
 # Network informations about the system or a process like the brandwidth use.
 #
 # Example of network brandwidth calculation:

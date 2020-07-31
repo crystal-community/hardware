@@ -12,7 +12,7 @@ struct Hardware::PID
 
   # Creates a new `Hardware::PID`.
   def initialize(@number : Int64 = Process.pid)
-    raise "pid #{number} doesn't exist" if !exists?
+    raise Error.new "Pid #{number} doesn't exist" if !exists?
   end
 
   # Creates a new `Hardware::PID` by finding the `executable`'s pid.
@@ -22,7 +22,7 @@ struct Hardware::PID
       match_pid = pid
       break
     end
-    raise "no pid for '#{executable}' exists" if !match_pid
+    raise Error.new "No pid for '#{executable}' exists" if !match_pid
     new match_pid
   end
 

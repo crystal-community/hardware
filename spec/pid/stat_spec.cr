@@ -22,7 +22,7 @@ describe Hardware::PID::Stat do
         stat = pid.stat
         sleep 4
         channel.send stat.cpu_usage!
-      rescue ex : File::NotFoundError
+      rescue ex : Hardware::Error
         channel.send 0
       end
       pids_count += 1

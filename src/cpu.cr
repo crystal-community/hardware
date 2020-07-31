@@ -1,3 +1,5 @@
+require "./error"
+
 # CPU related informations of your system.
 #
 # ```
@@ -16,7 +18,7 @@ struct Hardware::CPU
   # Must be lower than `System.cpu_count`, or `nil` for the whole cores in total.
   def initialize(number : Int32? = nil, parse_stats : Bool = true)
     if @number = number
-      raise "CPU number must be superior or equal to 0, and inferior to #{System.cpu_count}" unless 0 <= number < System.cpu_count
+      raise Error.new "CPU number must be superior or equal to 0, and inferior to #{System.cpu_count}" unless 0 <= number < System.cpu_count
     end
     parse_stat_file if parse_stats
   end
@@ -25,7 +27,7 @@ struct Hardware::CPU
     {% stats = %w(user nice system idle iowait irq softirq steal guest guest_nice) %}
     {% for stat in stats %}
     # Returns the {{stat}} stat field.
-    getter {{stat.id}} : Int64 { parse_stat_file; @{{stat.id}} || raise "Field not parsed: '{{stat.id}}'" }
+    getter {{stat.id}} : Int64 { parse_stat_file; @{{stat.id}} || raise Error.new "Field not parsed: '{{stat.id}}'" }
     {% end %}
 
     private def parse_stat_line(column_num : Int32, buffer : IO)
@@ -94,7 +96,7 @@ struct Hardware::CPU
   # ```
   def usage! : Float64
     # 100 * Usage Time / Total Time
-    @user || raise "Stat file not previously parsed"
+    @user || raise Error.new "Stat file not previously parsed"
     previous_cpu = self
     @used = @idle_total = @total = nil
     parse_stat_file

@@ -36,7 +36,7 @@ struct Hardware::PID::Stat
       when "W"      then Paging
       when "x", "X" then Dead
       when "I"      then Interruptible
-      else               raise "Invalid stat: #{stat}"
+      else               raise Error.new "Invalid stat: #{stat}"
       end
     end
   end
@@ -105,18 +105,18 @@ struct Hardware::PID::Stat
       end
     end
   rescue ex
-    raise Exception.new "Failed to parse #{@pid}", ex
+    raise Error.new "Failed to parse #{@pid}", ex
   end
 
   # Generate methods based on stat
   {% for stat in stats %}
   # Returns the "{{stat.id}}" stat field.
-  getter {{stat.id}} : Int64 { parse_stat_file; @{{stat.id}} || raise "Field not parsed: '{{stat.id}}'" }
+  getter {{stat.id}} : Int64 { parse_stat_file; @{{stat.id}} || raise Error.new "Field not parsed: '{{stat.id}}'" }
   {% end %}
   {% end %}
 
-  getter comm : String { parse_stat_file; @comm || raise "Field not parsed: 'comm'" }
-  getter state : State { parse_stat_file; @state || raise "Field not parsed: 'state'" }
+  getter comm : String { parse_stat_file; @comm || raise Error.new "Field not parsed: 'comm'" }
+  getter state : State { parse_stat_file; @state || raise Error.new "Field not parsed: 'state'" }
 
   # Returns the CPU time with or without including ones from `children` processes.
   def cpu_time(children : Bool = false) : Int32
