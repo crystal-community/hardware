@@ -61,6 +61,6 @@ struct Hardware::Memory
 
   # Returns either the used/available memory in percentage.
   def percent(used : Bool = true) : Float64
-    (used ? self.used : available) * 100 / total
+    (used ? self.used : available) * 100.0 / total
   end
 end
