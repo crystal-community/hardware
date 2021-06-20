@@ -1,0 +1,2 @@
+class InvalidDevice < Exception
+end
