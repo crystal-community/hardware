@@ -112,9 +112,7 @@ struct Hardware::PID
 
   # Returns a parsed `/proc/``#pid``/status`.
   def status : Status
-    read_proc "status" do |io|
-      Status.new io
-    end
+    name.size > 0 ? Status.new read_proc "status", &.gets_to_end : Status.new nil
   end
 end
 
