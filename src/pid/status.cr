@@ -1,29 +1,58 @@
 struct Hardware::PID::Status
-  getter data : Hash(String, String) = Hash(String, String).new
+  getter data : Hash(String, String)
 
-  protected def initialize(io : IO)
-    @data = Hash(String, String).new
-    buffer = IO::Memory.new
-    key = ""
-    io.each_char do |char|
-      case char
-      when ' '
-        # skip
-      when ':'
-        key = buffer.to_s
-        buffer.clear
-      when '\n'
-        @data[key] = buffer.to_s
-      else
-        buffer << char
-      end
+  def initialize(file_content : String?)
+    @data = {
+      "Name"         => "",
+      "Umask"        => "",
+      "State"        => "",
+      "Tgid"         => "",
+      "Ngid"         => "",
+      "Pid"          => "",
+      "PPid"         => "",
+      "TracerPid"    => "",
+      "Uid"          => "",
+      "Gid"          => "",
+      "FDSize"       => "",
+      "Groups"       => "",
+      "NStgid"       => "",
+      "NSpid"        => "",
+      "NSpgid"       => "",
+      "NSsid"        => "",
+      "VmPeak"       => "",
+      "VmSize"       => "",
+      "VmLck"        => "",
+      "VmPin"        => "",
+      "VmHWM"        => "",
+      "VmRSS"        => "",
+      "RssAnon"      => "",
+      "RssFile"      => "",
+      "RssShmem"     => "",
+      "VmData"       => "",
+      "VmStk"        => "",
+      "VmExe"        => "",
+      "VmLib"        => "",
+      "VmPTE"        => "",
+      "VmSwap"       => "",
+      "HugetlbPages" => "",
+      "CoreDumping"  => "",
+      "THP_enabled"  => "",
+      "Threads"      => "",
+    }
+
+    return unless file_content
+
+    file_content.each_line do |l|
+      key, value = l.delete(' ').delete('\t').split(':')
+      @data[key] = value
+      break if key == "Threads"
     end
   end
 
   # PID's status name.
   getter name : String { @data["Name"] }
 
-  # PID's status state.
+  # PID's status umask.
   getter umask : String { @data["Umask"] }
 
   # PID's status state.
