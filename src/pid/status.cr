@@ -2,7 +2,7 @@ struct Hardware::PID::Status
   getter data : Hash(String, String) = Hash(String, String).new
 
   protected def initialize(io : IO)
-    data = Hash(String, String).new
+    @data = Hash(String, String).new
     buffer = IO::Memory.new
     key = ""
     io.each_char do |char|
@@ -13,7 +13,7 @@ struct Hardware::PID::Status
         key = buffer.to_s
         buffer.clear
       when '\n'
-        data[key] = buffer.to_s
+        @data[key] = buffer.to_s
       else
         buffer << char
       end
