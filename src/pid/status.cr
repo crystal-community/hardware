@@ -148,7 +148,6 @@ struct Hardware::PID::Status
           data[key] = buffer.to_s
           buffer.clear
           state = ReadState::Key
-          break if key == "Threads"
           key = ""
         else
           buffer << char
