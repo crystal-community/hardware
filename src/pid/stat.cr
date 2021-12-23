@@ -11,8 +11,8 @@ struct Hardware::PID::Stat
   getter data : Array(String) = Array(String).new
   getter pid : Int64
   @cpu : CPU?
-  @cpu_time : Int32
-  @cpu_time_children : Int32
+  @cpu_time : Int64
+  @cpu_time_children : Int64
 
   enum State
     Running
@@ -43,8 +43,8 @@ struct Hardware::PID::Stat
 
   def initialize(@pid : Int64 = Process.pid, @cpu : CPU? = CPU.new)
     parse_stat_file
-    @cpu_time = (utime + stime).to_i
-    @cpu_time_children = @cpu_time + (cutime + cstime).to_i
+    @cpu_time = (utime + stime).to_i64
+    @cpu_time_children = @cpu_time + (cutime + cstime).to_i64
   end
 
   {% begin %}
@@ -119,14 +119,14 @@ struct Hardware::PID::Stat
   getter state : State { parse_stat_file; @state || raise Error.new "Field not parsed: 'state'" }
 
   # Returns the CPU time with or without including ones from `children` processes.
-  def cpu_time(children : Bool = false) : Int32
+  def cpu_time(children : Bool = false) : Int64
     # utime  - user
     # stime  - kernel
     # cutime - user, including time from children
     # cstime - kernel, including time from children
-    @cpu_time = (utime + stime).to_i
+    @cpu_time = (utime + stime).to_i64
 
-    @cpu_time_children = @cpu_time + (cutime + cstime).to_i
+    @cpu_time_children = @cpu_time + (cutime + cstime).to_i64
     children ? @cpu_time_children : @cpu_time
   end
 
