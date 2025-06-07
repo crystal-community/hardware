@@ -1,7 +1,8 @@
 # hardware
 
-[![GitHub release](https://img.shields.io/github/release/crystal-community/hardware.svg)](https://github.com/crystal-community/hardware/releases)
-[![Build Status](https://travis-ci.org/crystal-community/hardware.svg?branch=master)](https://travis-ci.org/crystal-community/hardware)
+[![CI](https://github.com/crystal-community/hardware/workflows/CI/badge.svg)](https://github.com/crystal-community/hardware/actions?query=workflow%3ACI)
+[![Documentation](https://github.com/crystal-community/hardware/workflows/Documentation/badge.svg)](https://crystal-community.github.io/hardware)
+[![ISC](https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square)](https://en.wikipedia.org/wiki/ISC_license)
 
 A basic module to get CPU, memory and network informations of the current running OS and its processes.
 
@@ -65,4 +66,4 @@ $ docker-compose run spec
 ## Contributors
 
 - [bararchy](https://github.com/bararchy) - creator, maintainer   
-- [j8r](https://github.com/j8r) - contributor  
+- [j8r](https://github.com/j8r) - maintainer  

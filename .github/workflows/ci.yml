@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    container: crystallang/crystal:latest-alpine
+    steps:
+      - name: Download source code
+        uses: actions/checkout@v4
+      - name: Format
+        run: "crystal tool format --check"
+      - name: Run tests
+        run: "crystal spec --warnings none"

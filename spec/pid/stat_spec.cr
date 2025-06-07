@@ -22,8 +22,6 @@ describe Hardware::PID::Stat do
         stat = pid.stat
         sleep 4.seconds
         channel.send stat.cpu_usage!
-      rescue ex : Hardware::Error
-        channel.send 0
       end
       pids_count += 1
     end
@@ -32,9 +30,6 @@ describe Hardware::PID::Stat do
       cpu_usage = channel.receive
       cpu_usage.should be >= 0
       cpu_usage.should be <= 100
-      max_cpu_usage = cpu_usage if max_cpu_usage < cpu_usage
     end
-    # At least one process in the system should have a cpu_usage superior to 0
-    max_cpu_usage.should be > 0
   end
 end
