@@ -5,7 +5,7 @@ def assert_cpu_load(&)
   # Wait enough time to have measurable load
   cpu_usage = 0
   9.times do
-    sleep 1
+    sleep 1.seconds
     cpu_usage = yield
 
     break if 0 < cpu_usage <= 100

@@ -62,7 +62,7 @@ struct Hardware::PID
 
   # Returns `/proc/``#pid``/exe` if readable.
   def exe : String
-    File.real_path "/proc/#{@number}/exe"
+    File.realpath "/proc/#{@number}/exe"
   end
 
   def exists? : Bool

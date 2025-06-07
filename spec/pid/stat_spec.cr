@@ -20,7 +20,7 @@ describe Hardware::PID::Stat do
     Hardware::PID.each do |pid|
       spawn do
         stat = pid.stat
-        sleep 4
+        sleep 4.seconds
         channel.send stat.cpu_usage!
       rescue ex : Hardware::Error
         channel.send 0
