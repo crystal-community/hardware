@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.15.1">
+<meta name="crystal_docs.project_version" content="0.5.3">
+<meta name="crystal_docs.project_name" content="hardware">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="hardware">
+  <title>Hardware::Net - hardware 0.5.3</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          hardware
+        </a>
+      </h1>
+
+      <span class="project-version">
+        0.5.3
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="hardware/Hardware" data-name="hardware">
+      <a href="../Hardware.html">Hardware</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hardware/Hardware/CPU" data-name="hardware::cpu">
+      <a href="../Hardware/CPU.html">CPU</a>
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/Error" data-name="hardware::error">
+      <a href="../Hardware/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/Memory" data-name="hardware::memory">
+      <a href="../Hardware/Memory.html">Memory</a>
+      
+    </li>
+  
+  <li class=" current" data-id="hardware/Hardware/Net" data-name="hardware::net">
+      <a href="../Hardware/Net.html">Net</a>
+      
+    </li>
+  
+  <li class="parent " data-id="hardware/Hardware/PID" data-name="hardware::pid">
+      <a href="../Hardware/PID.html">PID</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="hardware/Hardware/PID/Stat" data-name="hardware::pid::stat">
+      <a href="../Hardware/PID/Stat.html">Stat</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hardware/Hardware/PID/Stat/State" data-name="hardware::pid::stat::state">
+      <a href="../Hardware/PID/Stat/State.html">State</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/PID/Status" data-name="hardware::pid::status">
+      <a href="../Hardware/PID/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    struct
+  </span> Hardware::<wbr>Net
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Hardware/Net.html">Hardware::Net</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Network informations about the system or a process like the brandwidth use.</p>
+<p>Example of network brandwidth calculation:</p>
+<pre><code class="language-crystal">net <span class="o">=</span> <span class="t">Hardware</span><span class="t">::</span><span class="t">Net</span>.new <span class="c"># System network stats</span>
+old_in, old_out <span class="o">=</span> net.in_octets, net.out_octets
+loop <span class="k">do</span>
+  sleep <span class="n">1</span>
+  net <span class="o">=</span> <span class="t">Hardware</span><span class="t">::</span><span class="t">Net</span>.new <span class="c"># Update network stats</span>
+  now_in, now_out <span class="o">=</span> net.in_octets, net.out_octets
+  puts <span class="s">&quot;down: </span><span class="i">#{</span>(now_in <span class="o">-</span> old_in) <span class="o">/</span> <span class="n">1000</span><span class="i">}</span><span class="s">kB/s | up: </span><span class="i">#{</span>(now_out <span class="o">-</span> old_out) <span class="o">/</span> <span class="n">1000</span><span class="i">}</span><span class="s">kB/s&quot;</span> <span class="c"># =&gt; down: 427kB/s | up: 24kB/s</span>
+  old_in, old_out <span class="o">=</span> now_in, now_out
+<span class="k">end</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      net.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28pid%3AInt64%7CNil%3Dnil%29-class-method" class="signature"><strong>.new</strong>(pid : Int64 | Nil = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Creates a new <code><a href="../Hardware/Net.html">Hardware::Net</a></code> for the system, or a given PID.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#in_bcast_octets%3AInt64-instance-method" class="signature"><strong>#in_bcast_octets</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InBcastOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_bcast_pkts%3AInt64-instance-method" class="signature"><strong>#in_bcast_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InBcastPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_ce_pkts%3AInt64-instance-method" class="signature"><strong>#in_ce_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InCePkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_csum_errors%3AInt64-instance-method" class="signature"><strong>#in_csum_errors</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InCsumErrors&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_ect0_pkts%3AInt64-instance-method" class="signature"><strong>#in_ect0_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InEct0Pkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_ect1_pkts%3AInt64-instance-method" class="signature"><strong>#in_ect1_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InEct1Pkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_mcast_octets%3AInt64-instance-method" class="signature"><strong>#in_mcast_octets</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InMcastOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_mcast_pkts%3AInt64-instance-method" class="signature"><strong>#in_mcast_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InMcastPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_no_ect_pkts%3AInt64-instance-method" class="signature"><strong>#in_no_ect_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InNoEctPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_no_routes%3AInt64-instance-method" class="signature"><strong>#in_no_routes</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InNoRoutes&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_octets%3AInt64-instance-method" class="signature"><strong>#in_octets</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#in_truncated_pkts%3AInt64-instance-method" class="signature"><strong>#in_truncated_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;InTruncatedPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ip_ext%3AHash%28String%2CInt64%29-instance-method" class="signature"><strong>#ip_ext</strong> : Hash(String, Int64)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#out_bcast_octets%3AInt64-instance-method" class="signature"><strong>#out_bcast_octets</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;OutBcastOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#out_bcast_pkts%3AInt64-instance-method" class="signature"><strong>#out_bcast_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;OutBcastPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#out_mcast_octets%3AInt64-instance-method" class="signature"><strong>#out_mcast_octets</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;OutMcastOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#out_mcast_pkts%3AInt64-instance-method" class="signature"><strong>#out_mcast_pkts</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;OutMcastPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#out_octets%3AInt64-instance-method" class="signature"><strong>#out_octets</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;&quot;OutOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pid%3AInt64%7CNil-instance-method" class="signature"><strong>#pid</strong> : Int64 | Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tcp_ext%3AHash%28String%2CInt64%29-instance-method" class="signature"><strong>#tcp_ext</strong> : Hash(String, Int64)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(pid:Int64|Nil=nil)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(pid : Int64 | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#new%28pid%3AInt64%7CNil%3Dnil%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new <code><a href="../Hardware/Net.html">Hardware::Net</a></code> for the system, or a given PID.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="in_bcast_octets:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_bcast_octets</strong> : Int64
+
+        <a class="method-permalink" href="#in_bcast_octets%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InBcastOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_bcast_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_bcast_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#in_bcast_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InBcastPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_ce_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_ce_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#in_ce_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InCePkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.  Only in recent versions of Linux</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_csum_errors:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_csum_errors</strong> : Int64
+
+        <a class="method-permalink" href="#in_csum_errors%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InCsumErrors&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.  Only in recent versions of Linux</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_ect0_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_ect0_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#in_ect0_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InEct0Pkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.  Only in recent versions of Linux</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_ect1_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_ect1_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#in_ect1_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InEct1Pkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.  Only in recent versions of Linux</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_mcast_octets:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_mcast_octets</strong> : Int64
+
+        <a class="method-permalink" href="#in_mcast_octets%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InMcastOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_mcast_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_mcast_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#in_mcast_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InMcastPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_no_ect_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_no_ect_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#in_no_ect_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InNoEctPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.  Only in recent versions of Linux</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_no_routes:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_no_routes</strong> : Int64
+
+        <a class="method-permalink" href="#in_no_routes%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InNoRoutes&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_octets:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_octets</strong> : Int64
+
+        <a class="method-permalink" href="#in_octets%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="in_truncated_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>in_truncated_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#in_truncated_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;InTruncatedPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ip_ext:Hash(String,Int64)-instance-method">
+      <div class="signature">
+        
+        def <strong>ip_ext</strong> : Hash(String, Int64)
+
+        <a class="method-permalink" href="#ip_ext%3AHash%28String%2CInt64%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="out_bcast_octets:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>out_bcast_octets</strong> : Int64
+
+        <a class="method-permalink" href="#out_bcast_octets%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;OutBcastOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="out_bcast_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>out_bcast_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#out_bcast_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;OutBcastPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="out_mcast_octets:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>out_mcast_octets</strong> : Int64
+
+        <a class="method-permalink" href="#out_mcast_octets%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;OutMcastOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="out_mcast_pkts:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>out_mcast_pkts</strong> : Int64
+
+        <a class="method-permalink" href="#out_mcast_pkts%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;OutMcastPkts&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="out_octets:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>out_octets</strong> : Int64
+
+        <a class="method-permalink" href="#out_octets%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;&quot;OutOctets&quot;&quot; field of the <code>IpExt</code> field in <code>net/netstat</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pid:Int64|Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>pid</strong> : Int64 | Nil
+
+        <a class="method-permalink" href="#pid%3AInt64%7CNil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tcp_ext:Hash(String,Int64)-instance-method">
+      <div class="signature">
+        
+        def <strong>tcp_ext</strong> : Hash(String, Int64)
+
+        <a class="method-permalink" href="#tcp_ext%3AHash%28String%2CInt64%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

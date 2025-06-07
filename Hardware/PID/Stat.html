@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.15.1">
+<meta name="crystal_docs.project_version" content="0.5.3">
+<meta name="crystal_docs.project_name" content="hardware">
+
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+  <meta name="repository-name" content="hardware">
+  <title>Hardware::PID::Stat - hardware 0.5.3</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          hardware
+        </a>
+      </h1>
+
+      <span class="project-version">
+        0.5.3
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="hardware/Hardware" data-name="hardware">
+      <a href="../../Hardware.html">Hardware</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hardware/Hardware/CPU" data-name="hardware::cpu">
+      <a href="../../Hardware/CPU.html">CPU</a>
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/Error" data-name="hardware::error">
+      <a href="../../Hardware/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/Memory" data-name="hardware::memory">
+      <a href="../../Hardware/Memory.html">Memory</a>
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/Net" data-name="hardware::net">
+      <a href="../../Hardware/Net.html">Net</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="hardware/Hardware/PID" data-name="hardware::pid">
+      <a href="../../Hardware/PID.html">PID</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="hardware/Hardware/PID/Stat" data-name="hardware::pid::stat">
+      <a href="../../Hardware/PID/Stat.html">Stat</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hardware/Hardware/PID/Stat/State" data-name="hardware::pid::stat::state">
+      <a href="../../Hardware/PID/Stat/State.html">State</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/PID/Status" data-name="hardware::pid::status">
+      <a href="../../Hardware/PID/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    struct
+  </span> Hardware::<wbr>PID::<wbr>Stat
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Hardware/PID/Stat.html">Hardware::PID::Stat</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Parse stat initialized at <code>Hadware::PID#stat</code></p>
+<pre><code class="language-crystal">pid_stat <span class="o">=</span> <span class="t">Hardware</span><span class="t">::</span><span class="t">PID</span><span class="t">::</span><span class="t">Stat</span>.new
+loop <span class="k">do</span>
+  sleep <span class="n">1</span>
+  p pid_stat.cpu_usage! <span class="c"># =&gt; 1.5</span>
+<span class="k">end</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      pid/stat.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28pid%3AInt64%3DProcess.pid%2Ccpu%3ACPU%7CNil%3DCPU.new%29-class-method" class="signature"><strong>.new</strong>(pid : Int64 = <span class="t">Process</span>.pid, cpu : CPU | Nil = <span class="t">CPU</span>.new)</a>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#cmajflt%3AInt64-instance-method" class="signature"><strong>#cmajflt</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;cmajflt&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cminflt%3AInt64-instance-method" class="signature"><strong>#cminflt</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;cminflt&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#comm%3AString-instance-method" class="signature"><strong>#comm</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cpu_time%28children%3ABool%3Dfalse%29%3AInt32-instance-method" class="signature"><strong>#cpu_time</strong>(children : Bool = <span class="n">false</span>) : Int32</a>
+        
+          <div class="summary"><p>Returns the CPU time with or without including ones from <code>children</code> processes.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cpu_usage%21%28children%3ABool%3Dfalse%2Ccurrent_cpu%3ACPU%3DCPU.new%29%3AFloat64-instance-method" class="signature"><strong>#cpu_usage!</strong>(children : Bool = <span class="n">false</span>, current_cpu : CPU = <span class="t">CPU</span>.new) : Float64</a>
+        
+          <div class="summary"><p>Returns the CPU used in percentage.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cstime%3AInt64-instance-method" class="signature"><strong>#cstime</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;cstime&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cutime%3AInt64-instance-method" class="signature"><strong>#cutime</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;cutime&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#data%3AArray%28String%29-instance-method" class="signature"><strong>#data</strong> : Array(String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#flags%3AInt64-instance-method" class="signature"><strong>#flags</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;flags&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#itrealvalue%3AInt64-instance-method" class="signature"><strong>#itrealvalue</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;itrealvalue&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#majflt%3AInt64-instance-method" class="signature"><strong>#majflt</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;majflt&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#minflt%3AInt64-instance-method" class="signature"><strong>#minflt</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;minflt&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nice%3AInt64-instance-method" class="signature"><strong>#nice</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;nice&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numthreads%3AInt64-instance-method" class="signature"><strong>#numthreads</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;numthreads&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#parse_stat_file-instance-method" class="signature"><strong>#parse_stat_file</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pgrp%3AInt64-instance-method" class="signature"><strong>#pgrp</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;pgrp&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pid%3AInt64-instance-method" class="signature"><strong>#pid</strong> : Int64</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ppid%3AInt64-instance-method" class="signature"><strong>#ppid</strong> : Int64</a>
+        
+          <div class="summary"><p>Generate methods based on stat Returns the &quot;ppid&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#priority%3AInt64-instance-method" class="signature"><strong>#priority</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;priority&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rss%3AInt64-instance-method" class="signature"><strong>#rss</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;rss&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#session%3AInt64-instance-method" class="signature"><strong>#session</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;session&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#starttime%3AInt64-instance-method" class="signature"><strong>#starttime</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;starttime&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#state%3AState-instance-method" class="signature"><strong>#state</strong> : State</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stime%3AInt64-instance-method" class="signature"><strong>#stime</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;stime&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tpgid%3AInt64-instance-method" class="signature"><strong>#tpgid</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;tpgid&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tty_nr%3AInt64-instance-method" class="signature"><strong>#tty_nr</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;tty_nr&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#utime%3AInt64-instance-method" class="signature"><strong>#utime</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;utime&quot; stat field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#vsize%3AInt64-instance-method" class="signature"><strong>#vsize</strong> : Int64</a>
+        
+          <div class="summary"><p>Returns the &quot;vsize&quot; stat field.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(pid:Int64=Process.pid,cpu:CPU|Nil=CPU.new)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(pid : Int64 = <span class="t">Process</span>.pid, cpu : <a href="../../Hardware/CPU.html">CPU</a> | Nil = <span class="t">CPU</span>.new)
+
+        <a class="method-permalink" href="#new%28pid%3AInt64%3DProcess.pid%2Ccpu%3ACPU%7CNil%3DCPU.new%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="cmajflt:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>cmajflt</strong> : Int64
+
+        <a class="method-permalink" href="#cmajflt%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;cmajflt&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cminflt:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>cminflt</strong> : Int64
+
+        <a class="method-permalink" href="#cminflt%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;cminflt&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="comm:String-instance-method">
+      <div class="signature">
+        
+        def <strong>comm</strong> : String
+
+        <a class="method-permalink" href="#comm%3AString-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cpu_time(children:Bool=false):Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>cpu_time</strong>(children : Bool = <span class="n">false</span>) : Int32
+
+        <a class="method-permalink" href="#cpu_time%28children%3ABool%3Dfalse%29%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the CPU time with or without including ones from <code>children</code> processes.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cpu_usage!(children:Bool=false,current_cpu:CPU=CPU.new):Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>cpu_usage!</strong>(children : Bool = <span class="n">false</span>, current_cpu : <a href="../../Hardware/CPU.html">CPU</a> = <span class="t">CPU</span>.new) : Float64
+
+        <a class="method-permalink" href="#cpu_usage%21%28children%3ABool%3Dfalse%2Ccurrent_cpu%3ACPU%3DCPU.new%29%3AFloat64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the CPU used in percentage.</p>
+<pre><code class="language-crystal">pid_stat <span class="o">=</span> <span class="t">Hardware</span><span class="t">::</span><span class="t">PID</span><span class="t">::</span><span class="t">Stat</span>.new
+loop <span class="k">do</span>
+  sleep <span class="n">1</span>
+  p pid_stat.cpu_usage! <span class="c"># =&gt; 1.5</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cstime:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>cstime</strong> : Int64
+
+        <a class="method-permalink" href="#cstime%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;cstime&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cutime:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>cutime</strong> : Int64
+
+        <a class="method-permalink" href="#cutime%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;cutime&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="data:Array(String)-instance-method">
+      <div class="signature">
+        
+        def <strong>data</strong> : Array(String)
+
+        <a class="method-permalink" href="#data%3AArray%28String%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="flags:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>flags</strong> : Int64
+
+        <a class="method-permalink" href="#flags%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;flags&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="itrealvalue:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>itrealvalue</strong> : Int64
+
+        <a class="method-permalink" href="#itrealvalue%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;itrealvalue&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="majflt:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>majflt</strong> : Int64
+
+        <a class="method-permalink" href="#majflt%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;majflt&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="minflt:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>minflt</strong> : Int64
+
+        <a class="method-permalink" href="#minflt%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;minflt&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nice:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>nice</strong> : Int64
+
+        <a class="method-permalink" href="#nice%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;nice&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numthreads:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>numthreads</strong> : Int64
+
+        <a class="method-permalink" href="#numthreads%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;numthreads&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="parse_stat_file-instance-method">
+      <div class="signature">
+        
+        def <strong>parse_stat_file</strong>
+
+        <a class="method-permalink" href="#parse_stat_file-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pgrp:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>pgrp</strong> : Int64
+
+        <a class="method-permalink" href="#pgrp%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;pgrp&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pid:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>pid</strong> : Int64
+
+        <a class="method-permalink" href="#pid%3AInt64-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ppid:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>ppid</strong> : Int64
+
+        <a class="method-permalink" href="#ppid%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generate methods based on stat
+Returns the &quot;ppid&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="priority:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>priority</strong> : Int64
+
+        <a class="method-permalink" href="#priority%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;priority&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rss:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>rss</strong> : Int64
+
+        <a class="method-permalink" href="#rss%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;rss&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="session:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>session</strong> : Int64
+
+        <a class="method-permalink" href="#session%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;session&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="starttime:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>starttime</strong> : Int64
+
+        <a class="method-permalink" href="#starttime%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;starttime&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="state:State-instance-method">
+      <div class="signature">
+        
+        def <strong>state</strong> : <a href="../../Hardware/PID/Stat/State.html">State</a>
+
+        <a class="method-permalink" href="#state%3AState-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="stime:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>stime</strong> : Int64
+
+        <a class="method-permalink" href="#stime%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;stime&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tpgid:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>tpgid</strong> : Int64
+
+        <a class="method-permalink" href="#tpgid%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;tpgid&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tty_nr:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>tty_nr</strong> : Int64
+
+        <a class="method-permalink" href="#tty_nr%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;tty_nr&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="utime:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>utime</strong> : Int64
+
+        <a class="method-permalink" href="#utime%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;utime&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="vsize:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>vsize</strong> : Int64
+
+        <a class="method-permalink" href="#vsize%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the &quot;vsize&quot; stat field.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

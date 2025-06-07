@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.15.1">
+<meta name="crystal_docs.project_version" content="0.5.3">
+<meta name="crystal_docs.project_name" content="hardware">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="hardware">
+  <title>Hardware::PID - hardware 0.5.3</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          hardware
+        </a>
+      </h1>
+
+      <span class="project-version">
+        0.5.3
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="hardware/Hardware" data-name="hardware">
+      <a href="../Hardware.html">Hardware</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hardware/Hardware/CPU" data-name="hardware::cpu">
+      <a href="../Hardware/CPU.html">CPU</a>
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/Error" data-name="hardware::error">
+      <a href="../Hardware/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/Memory" data-name="hardware::memory">
+      <a href="../Hardware/Memory.html">Memory</a>
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/Net" data-name="hardware::net">
+      <a href="../Hardware/Net.html">Net</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="hardware/Hardware/PID" data-name="hardware::pid">
+      <a href="../Hardware/PID.html">PID</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="hardware/Hardware/PID/Stat" data-name="hardware::pid::stat">
+      <a href="../Hardware/PID/Stat.html">Stat</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hardware/Hardware/PID/Stat/State" data-name="hardware::pid::stat::state">
+      <a href="../Hardware/PID/Stat/State.html">State</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="hardware/Hardware/PID/Status" data-name="hardware::pid::status">
+      <a href="../Hardware/PID/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    struct
+  </span> Hardware::<wbr>PID
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Hardware/PID.html">Hardware::PID</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>All informations related to the Processes running on your sytem, defined by Process IDentifiers.</p>
+<pre><code class="language-crystal">pid <span class="o">=</span> <span class="t">Hardware</span><span class="t">::</span><span class="t">PID</span>.new           <span class="c"># Default is Process.pid</span>
+app <span class="o">=</span> <span class="t">Hardware</span><span class="t">::</span><span class="t">PID</span>.new <span class="s">&quot;firefox&quot;</span> <span class="c"># Take the first matching PID</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      pid.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28number%3AInt64%3DProcess.pid%29-class-method" class="signature"><strong>.new</strong>(number : Int64 = <span class="t">Process</span>.pid)</a>
+        
+          <div class="summary"><p>Creates a new <code><a href="../Hardware/PID.html">Hardware::PID</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28executable%3AString%29-class-method" class="signature"><strong>.new</strong>(executable : String)</a>
+        
+          <div class="summary"><p>Creates a new <code><a href="../Hardware/PID.html">Hardware::PID</a></code> by finding the <code>executable</code>'s pid.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#each%28%26%3APID-%3E%29%3ANil-class-method" class="signature"><strong>.each</strong>(& : PID -> ) : Nil</a>
+        
+          <div class="summary"><p>Yields a <code><a href="../Hardware/PID.html">Hardware::PID</a></code> for each PID present on the system.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_pids%28executable%3AString%2C%26%3AInt64-%3E%29-class-method" class="signature"><strong>.get_pids</strong>(executable : String, & : Int64 -> )</a>
+        
+          <div class="summary"><p>Yield each pids corresponding to a given <code>executable</code> name.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#cmdline%3AString-instance-method" class="signature"><strong>#cmdline</strong> : String</a>
+        
+          <div class="summary"><p>Returns <code>/proc/``#pid``/cmdline</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#command%3AString-instance-method" class="signature"><strong>#command</strong> : String</a>
+        
+          <div class="summary"><p>Returns a <code>String</code> representation of <code>/proc/``#pid``/cmdline</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#exe%3AString-instance-method" class="signature"><strong>#exe</strong> : String</a>
+        
+          <div class="summary"><p>Returns <code>/proc/``#pid``/exe</code> if readable.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#exists%3F%3ABool-instance-method" class="signature"><strong>#exists?</strong> : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#memory%3AInt32-instance-method" class="signature"><strong>#memory</strong> : Int32</a>
+        
+          <div class="summary"><p>Returns the actual memory used by the process.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name%3AString-instance-method" class="signature"><strong>#name</strong> : String</a>
+        
+          <div class="summary"><p>Returns the PID name based on <code><a href="../Hardware/PID.html#exe%3AString-instance-method">#exe</a></code> or <code><a href="../Hardware/PID.html#cmdline%3AString-instance-method">#cmdline</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#net%3ANet-instance-method" class="signature"><strong>#net</strong> : Net</a>
+        
+          <div class="summary"><p>Returns <code><a href="../Hardware/Net.html">Hardware::Net</a></code> for <code>#pid</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#number%3AInt64-instance-method" class="signature"><strong>#number</strong> : Int64</a>
+        
+          <div class="summary"><p>Pid number</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stat%28cpu%3ACPU%7CNil%3DCPU.new%29%3AStat-instance-method" class="signature"><strong>#stat</strong>(cpu : CPU | Nil = <span class="t">CPU</span>.new) : Stat</a>
+        
+          <div class="summary"><p>Returns a parsed <code>/proc/``#pid``/stat</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#statm%3AArray%28Int32%29-instance-method" class="signature"><strong>#statm</strong> : Array(Int32)</a>
+        
+          <div class="summary"><p>Returns a parsed <code>/proc/``#pid``/statm</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#status%3AStatus-instance-method" class="signature"><strong>#status</strong> : Status</a>
+        
+          <div class="summary"><p>Returns a parsed <code>/proc/``#pid``/status</code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(number:Int64=Process.pid)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(number : Int64 = <span class="t">Process</span>.pid)
+
+        <a class="method-permalink" href="#new%28number%3AInt64%3DProcess.pid%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new <code><a href="../Hardware/PID.html">Hardware::PID</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(executable:String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(executable : String)
+
+        <a class="method-permalink" href="#new%28executable%3AString%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new <code><a href="../Hardware/PID.html">Hardware::PID</a></code> by finding the <code>executable</code>'s pid.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="each(&amp;:PID-&gt;):Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>each</strong>(& : <a href="../Hardware/PID.html">PID</a> -> ) : Nil
+
+        <a class="method-permalink" href="#each%28%26%3APID-%3E%29%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Yields a <code><a href="../Hardware/PID.html">Hardware::PID</a></code> for each PID present on the system.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_pids(executable:String,&amp;:Int64-&gt;)-class-method">
+      <div class="signature">
+        
+        def self.<strong>get_pids</strong>(executable : String, & : Int64 -> )
+
+        <a class="method-permalink" href="#get_pids%28executable%3AString%2C%26%3AInt64-%3E%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Yield each pids corresponding to a given <code>executable</code> name.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="cmdline:String-instance-method">
+      <div class="signature">
+        
+        def <strong>cmdline</strong> : String
+
+        <a class="method-permalink" href="#cmdline%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>/proc/``#pid``/cmdline</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="command:String-instance-method">
+      <div class="signature">
+        
+        def <strong>command</strong> : String
+
+        <a class="method-permalink" href="#command%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a <code>String</code> representation of <code>/proc/``#pid``/cmdline</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="exe:String-instance-method">
+      <div class="signature">
+        
+        def <strong>exe</strong> : String
+
+        <a class="method-permalink" href="#exe%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>/proc/``#pid``/exe</code> if readable.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="exists?:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>exists?</strong> : Bool
+
+        <a class="method-permalink" href="#exists%3F%3ABool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="memory:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>memory</strong> : Int32
+
+        <a class="method-permalink" href="#memory%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the actual memory used by the process.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name:String-instance-method">
+      <div class="signature">
+        
+        def <strong>name</strong> : String
+
+        <a class="method-permalink" href="#name%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the PID name based on <code><a href="../Hardware/PID.html#exe%3AString-instance-method">#exe</a></code> or <code><a href="../Hardware/PID.html#cmdline%3AString-instance-method">#cmdline</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="net:Net-instance-method">
+      <div class="signature">
+        
+        def <strong>net</strong> : <a href="../Hardware/Net.html">Net</a>
+
+        <a class="method-permalink" href="#net%3ANet-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code><a href="../Hardware/Net.html">Hardware::Net</a></code> for <code>#pid</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="number:Int64-instance-method">
+      <div class="signature">
+        
+        def <strong>number</strong> : Int64
+
+        <a class="method-permalink" href="#number%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pid number</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="stat(cpu:CPU|Nil=CPU.new):Stat-instance-method">
+      <div class="signature">
+        
+        def <strong>stat</strong>(cpu : <a href="../Hardware/CPU.html">CPU</a> | Nil = <span class="t">CPU</span>.new) : <a href="../Hardware/PID/Stat.html">Stat</a>
+
+        <a class="method-permalink" href="#stat%28cpu%3ACPU%7CNil%3DCPU.new%29%3AStat-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a parsed <code>/proc/``#pid``/stat</code>.</p>
+<p>Have CPU information of the process.</p>
+<pre><code class="language-crystal">pid_stat <span class="o">=</span> <span class="t">Hardware</span><span class="t">::</span><span class="t">PID</span>.new.stat
+loop <span class="k">do</span>
+  sleep <span class="n">1</span>
+  p pid_stat.cpu_usage! <span class="c"># =&gt; 1.5</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="statm:Array(Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>statm</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#statm%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a parsed <code>/proc/``#pid``/statm</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="status:Status-instance-method">
+      <div class="signature">
+        
+        def <strong>status</strong> : <a href="../Hardware/PID/Status.html">Status</a>
+
+        <a class="method-permalink" href="#status%3AStatus-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a parsed <code>/proc/``#pid``/status</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>
