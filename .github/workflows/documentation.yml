@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     container:
       image: crystallang/crystal:latest-alpine
     steps:
@@ -16,8 +18,9 @@ jobs:
         run: crystal docs -o /docs
       - name: Deploy
         run: |
-          git config user.name CI
-          git config user.email ""
+          git config --global --add safe.directory $PWD
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}"
           git checkout -f --orphan gh-pages
           git rm --cached -rfq .
           git clean -fxdq
